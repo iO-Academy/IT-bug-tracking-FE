@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IT bug tracking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <aside class="col-3">
+                <div class="border rounded bg-primary bg-gradient p-3 mb-3 text-light">
+                    <h1>IT Support Tracking</h1>
+                </div>
+                <div class="border rounded bg-white p-3 mb-3">
+                    <h6 class="mb-0">Filters</h6>
+                </div>
+                <div class="border rounded bg-white p-3 mb-3">
+                    <div>
+                        <input type="checkbox" />
+                        <span class="badge text-bg-dark">Critical</span>
+                    </div>
+                    <div>
+                        <input type="checkbox" />
+                        <span class="badge text-bg-danger">Severe</span>
+                    </div>
+                    <div>
+                        <input type="checkbox" />
+                        <span class="badge text-bg-warning">Moderate</span>
+                    </div>
+                    <div>
+                        <input type="checkbox" />
+                        <span class="badge text-bg-success">Low</span>
+                    </div>
+                    <div>
+                        <input type="checkbox" />
+                        <span class="badge text-bg-info">Info</span>
+                    </div>
+                    <div>
+                        <input type="checkbox" />
+                        <span class="badge text-bg-secondary">Unknown</span>
+                    </div>
+                </div>
+                <div class="border rounded bg-white p-3 mb-3">
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                    <span class="badge text-bg-light me-1 mb-1">Tag</span>
+                </div>
+            </aside>
+            <main class="col-9">
+                <div class="border rounded bg-white p-3 mb-3 d-flex justify-content-between align-items-center">
+                    <div class="dropdown">
+                        <button class="btn btn-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Most Recent
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Most Recent</a></li>
+                            <li><a class="dropdown-item" href="#">Oldest</a></li>
+                            <li><a class="dropdown-item" href="#">Most Severe</a></li>
+                            <li><a class="dropdown-item" href="#">Most Comments</a></li>
+                        </ul>
+                    </div>
+                    <button class="float-end btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Report issue +</button>
+                </div>
+                <div class="rounded bg-white p-4 mb-3 d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#ticketModal">
+                    <div class="me-2"><i class="bi bi-circle-fill text-warning"></i></div>
+                    <div class="flex-fill">
+                        <h4>Title of the ticket</h4>
+                        <p>summary of the ticket</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end flex-column mx-2">
+                        <span><i class="bi bi-chat"></i> 12</span>
+                        <small class="float-end">05/01/2024</small>
+                    </div>
+                </div>
+
+                <div class="rounded bg-white p-4 mb-3 d-flex justify-content-between">
+                    <div class="me-2"><i class="bi bi-circle-fill text-warning"></i></div>
+                    <div class="flex-fill">
+                        <h4>Title of the ticket</h4>
+                        <p>summary of the ticket</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end flex-column mx-2">
+                        <span><i class="bi bi-chat"></i> 12</span>
+                        <small class="float-end">05/01/2024</small>
+                    </div>
+                </div>
+
+                <div class="rounded bg-white p-4 mb-3 d-flex justify-content-between">
+                    <div class="me-2"><i class="bi bi-circle-fill text-warning"></i></div>
+                    <div class="flex-fill">
+                        <h4>Title of the ticket</h4>
+                        <p>summary of the ticket</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end flex-column mx-2">
+                        <span><i class="bi bi-chat"></i> 12</span>
+                        <small class="float-end">05/01/2024</small>
+                    </div>
+                </div>
+
+                <div class="rounded bg-white p-4 mb-3 d-flex justify-content-between">
+                    <div class="me-2"><i class="bi bi-circle-fill text-warning"></i></div>
+                    <div class="flex-fill">
+                        <h4>Title of the ticket</h4>
+                        <p>summary of the ticket</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end flex-column mx-2">
+                        <span><i class="bi bi-chat"></i> 12</span>
+                        <small class="float-end">05/01/2024</small>
+                    </div>
+                </div>
+
+                <div class="rounded bg-white p-4 mb-3 d-flex justify-content-between">
+                    <div class="me-2"><i class="bi bi-circle-fill text-warning"></i></div>
+                    <div class="flex-fill">
+                        <h4>Title of the ticket</h4>
+                        <p>summary of the ticket</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end flex-column mx-2">
+                        <span><i class="bi bi-chat"></i> 12</span>
+                        <small class="float-end">05/01/2024</small>
+                    </div>
+                </div>
+
+                <div class="rounded bg-white p-4 mb-3 d-flex justify-content-between">
+                    <div class="me-2"><i class="bi bi-circle-fill text-warning"></i></div>
+                    <div class="flex-fill">
+                        <h4>Title of the ticket</h4>
+                        <p>summary of the ticket</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end flex-column mx-2">
+                        <span><i class="bi bi-chat"></i> 12</span>
+                        <small class="float-end">05/01/2024</small>
+                    </div>
+                </div>
+
+                <div class="rounded bg-white p-4 mb-3 d-flex justify-content-between">
+                    <div class="me-2"><i class="bi bi-circle-fill text-warning"></i></div>
+                    <div class="flex-fill">
+                        <h4>Title of the ticket</h4>
+                        <p>summary of the ticket</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end flex-column mx-2">
+                        <span><i class="bi bi-chat"></i> 12</span>
+                        <small class="float-end">05/01/2024</small>
+                    </div>
+                </div>
+
+                <div class="rounded bg-white p-4 mb-3 d-flex justify-content-between">
+                    <div class="me-2"><i class="bi bi-circle-fill text-warning"></i></div>
+                    <div class="flex-fill">
+                        <h4>Title of the ticket</h4>
+                        <p>summary of the ticket</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end flex-column mx-2">
+                        <span><i class="bi bi-chat"></i> 12</span>
+                        <small class="float-end">05/01/2024</small>
+                    </div>
+                </div>
+
+                <div class="rounded bg-white p-4 mb-3 d-flex justify-content-between">
+                    <div class="me-2"><i class="bi bi-circle-fill text-warning"></i></div>
+                    <div class="flex-fill">
+                        <h4>Title of the ticket</h4>
+                        <p>summary of the ticket</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end flex-column mx-2">
+                        <span><i class="bi bi-chat"></i> 12</span>
+                        <small class="float-end">05/01/2024</small>
+                    </div>
+                </div>
+
+                <div class="rounded bg-white p-4 mb-3 d-flex justify-content-between">
+                    <div class="me-2"><i class="bi bi-circle-fill text-warning"></i></div>
+                    <div class="flex-fill">
+                        <h4>Title of the ticket</h4>
+                        <p>summary of the ticket</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end flex-column mx-2">
+                        <span><i class="bi bi-chat"></i> 12</span>
+                        <small class="float-end">05/01/2024</small>
+                    </div>
+                </div>
+
+                <div class="rounded bg-white p-4 mb-3 d-flex justify-content-between">
+                    <div class="me-2"><i class="bi bi-circle-fill text-warning"></i></div>
+                    <div class="flex-fill">
+                        <h4>Title of the ticket</h4>
+                        <p>summary of the ticket</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end flex-column mx-2">
+                        <span><i class="bi bi-chat"></i> 12</span>
+                        <small class="float-end">05/01/2024</small>
+                    </div>
+                </div>
+
+                <div class="rounded bg-white p-4 mb-3 d-flex justify-content-between">
+                    <div class="me-2"><i class="bi bi-circle-fill text-warning"></i></div>
+                    <div class="flex-fill">
+                        <h4>Title of the ticket</h4>
+                        <p>summary of the ticket</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end flex-column mx-2">
+                        <span><i class="bi bi-chat"></i> 12</span>
+                        <small class="float-end">05/01/2024</small>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Report new issue</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="department" class="form-label">Department</label>
+                        <select class="form-select" id="department">
+                            <option selected>Please select your department</option>
+                            <option value="1">Marketing</option>
+                            <option value="2">Sales</option>
+                            <option value="3">Operations</option>
+                            <option value="4">Engineering</option>
+                            <option value="5">Admin</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="summary" class="form-label">Summarise your issue</label>
+                        <input type="text" class="form-control" id="summary">
+                        <div class="form-text">Maximum 100 characters</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="issue" class="form-label">Describe your issue</label>
+                        <textarea class="form-control" id="issue" rows="15"></textarea>
+                        <div class="form-text">Please be as descriptive as possible</div>
+                    </div>
+                    <div class="mb-3">
+                        <div>Severity</div>
+                        <label>
+                            <input type="radio" name="severity" value="0" />
+                            <span class="badge text-bg-dark">Critical</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="severity" value="1" />
+                            <span class="badge text-bg-danger">Severe</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="severity" value="2" />
+                            <span class="badge text-bg-warning">Moderate</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="severity" value="3" />
+                            <span class="badge text-bg-success">Low</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="severity" value="4" />
+                            <span class="badge text-bg-info">Info</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="severity" value="9" />
+                            <span class="badge text-bg-secondary">Unknown</span>
+                        </label>
+                    </div>
+
+                    <div class="mb-3">
+                        <div>Tags</div>
+                        <label>
+                            <input type="checkbox" />
+                            <span class="badge text-bg-light">Tag</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" />
+                            <span class="badge text-bg-light">Tag</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" />
+                            <span class="badge text-bg-light">Tag</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" />
+                            <span class="badge text-bg-light">Tag</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" />
+                            <span class="badge text-bg-light">Tag</span>
+                        </label>
+                        <div>
+                            <label for="newtag">Add new tag</label>
+                            <input type="text" id="newtag" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Title of the Ticket</h1>
+                    <div>
+                        <span class="badge text-bg-warning">Moderate</span>
+                        <button type="button" class="btn-close align-middle" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Reporter</strong>: Sarah Clarke</p>
+                    <p><strong>Department</strong>: Operations</p>
+                    <h6>Description:</h6>
+                    <p>Bombay. Tabby tiger american bobtail cornish rex. Ocicat tom kitten cougar. Donskoy tomcat russian blue yet sphynx. Panther balinese cheetah munchkin yet birman. Burmese kitten balinese , for norwegian forest burmese and british shorthair. Savannah jaguar savannah maine coon. Devonshire rex. Ragdoll norwegian forest. British shorthair. Abyssinian panther, or tabby, cheetah. Lion abyssinian lion lion but maine coon kitty munchkin. Ocelot turkish angora persian american shorthair turkish angora but burmese.</p>
+                    <p>Ocicat british shorthair burmese scottish fold yet leopard. Bobcat maine coon savannah and lynx. Cornish rex siberian yet thai british shorthair scottish fold cougar lynx. Kitten. Leopard maine coon yet thai maine coon himalayan. </p>
+                    <div class="mb-3">
+                        <p>Tags</p>
+                        <span class="badge text-bg-light">Tag</span><span class="badge text-bg-light">Tag</span><span class="badge text-bg-light">Tag</span><span class="badge text-bg-light">Tag</span><span class="badge text-bg-light">Tag</span><span class="badge text-bg-light">Tag</span>
+                    </div>
+
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                    Conversation
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <div class="mb-3 border-bottom">
+                                        <h6>Amy Robson <small class="float-end">10/05/2023 13:00</small></h6>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    </div>
+                                    <div class="mb-3 border-bottom">
+                                        <h6>Amy Robson <small class="float-end">10/05/2023 13:02</small></h6>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    </div>
+                                    <div class="mb-3 border-bottom">
+                                        <h6>Amy Robson <small class="float-end">10/05/2023 13:05</small></h6>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    </div>
+                                    <div class="text-end">
+                                        <button class="btn btn-primary">Add comment</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">Mark as complete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
