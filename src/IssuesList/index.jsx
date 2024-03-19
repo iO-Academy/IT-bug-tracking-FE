@@ -7,25 +7,10 @@ function IssuesList() {
     const [selectedIssue, setSelectedIssue] = useState(null)
     const [showIssueModal, setShowIssueModal] = useState(false)
 
-    const getIssues = () => {
-        setIssues([{
-            "id": 1,
-            "title": "Title of the ticket",
-            "summary": "The first 100 characters of the issue description",
-            "severity": "Moderate",
-            "tags": [{"name": "Tag 1","id": 1}, {"name": "Tag 2","id": 2}],
-            "date_created": "01/05/2023",
-            "comment_count": 3
-        },
-{
-            "id": 2,
-            "title": "Title of the ticket",
-            "summary": "The first 100 characters of the issue description",
-            "severity": "Low",
-            "tags": [{"name": "Tag 1","id": 1}, {"name": "Tag 2","id": 2}],
-            "date_created": "01/05/2023",
-            "comment_count": 12
-        }])
+    const getIssues = async () => {
+        const response = await fetch('issues.json')
+        const body = await response.json()
+        setIssues(body.issues)
     }
 
     useEffect(() => {
@@ -56,7 +41,7 @@ function IssuesList() {
                 {
                     issues.map(issue =>
                         <IssueItem
-                            key={issue.title}
+                            key={issue.id}
                             id={issue.id}
                             title={issue.title}
                             summary={issue.summary}
