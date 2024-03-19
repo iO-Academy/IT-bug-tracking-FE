@@ -1,0 +1,12 @@
+{
+  "severities": [
+    {
+      "name": "Critical",
+      "id": 1
+    },
+    {
+      "name": "Severe",
+      "id": 2
+    }
+  ]
+}

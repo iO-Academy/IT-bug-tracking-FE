@@ -6,30 +6,16 @@ function Sidebar() {
     const [severities, setSeverities] = useState([])
     const [tags, setTags] = useState([])
 
-    const getSeverities = () => {
-        setSeverities([
-            {
-                "name": "Critical",
-                "id": 1
-            },
-            {
-                "name": "Severe",
-                "id": 2
-            }
-        ])
+    const getSeverities = async () => {
+        const response = await fetch('severities.json')
+        const body = await response.json()
+        setSeverities(body.severities)
     }
 
-    const getTags = () => {
-        setTags([
-            {
-                "name": "Tag 1",
-                "id": 1
-            },
-            {
-                "name": "Tag 2",
-                "id": 2
-            }
-        ])
+    const getTags = async () => {
+        const response = await fetch('tags.json')
+        const body = await response.json()
+        setTags(body.tags)
     }
 
     useEffect(() => {
