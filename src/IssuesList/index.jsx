@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import IssueItem from "../IssueItem/index.jsx";
 import Modal from "../Modal/index.jsx";
+import IssuePopUp from "../IssuePopUp/index.jsx";
 
 function IssuesList() {
     const [issues, setIssues] = useState([])
@@ -18,8 +19,17 @@ function IssuesList() {
     }, []);
 
     useEffect(() => {
-        setShowIssueModal(true)
+        if (selectedIssue != null) {
+            setShowIssueModal(true)
+            console.log(`Selected issue is ${selectedIssue}`)
+        } else {
+            setShowIssueModal(false)
+        }
     }, [selectedIssue]);
+
+    const unselectIssue = () => {
+        setSelectedIssue(null)
+    }
 
     return (
         <>
@@ -54,9 +64,14 @@ function IssuesList() {
                     )
                 }
             </main>
-            <Modal show={showIssueModal} title={""} severity={""}>
-                <h1>hello world</h1>
-            </Modal>
+            {
+                showIssueModal &&
+                <Modal closeModal={unselectIssue} title={""} severity={""}>
+                    <h1>hello</h1>
+                    {/*<IssuePopUp></IssuePopUp>*/}
+                </Modal>
+            }
+
         </>
     )
 }

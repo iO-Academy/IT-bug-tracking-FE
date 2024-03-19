@@ -1,18 +1,12 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Severity from "../Severity/index.jsx";
 
-export default function Modal({show, title, severity, children}) {
-
-    const [showModal, setShowModal] = useState(show)
+export default function Modal({closeModal, title, severity, children}) {
 
     return (
         <>
-            {
-                showModal &&
-                <div className="modal-backdrop fade show"></div>
-            }
-
-            <div className={"modal" + (showModal ? ' open d-block' : '')} tabIndex="-1">
+            <div className="modal-backdrop fade show" onClick={closeModal}></div>
+            <div className="modal open d-block" tabIndex="-1">
                 <div className="modal-dialog modal-lg">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -22,7 +16,7 @@ export default function Modal({show, title, severity, children}) {
                                     severity &&
                                     <Severity severity={severity} />
                                 }
-                                <button onClick={() => {setShowModal(false)}} type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <button onClick={closeModal} type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>

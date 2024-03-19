@@ -1,4 +1,5 @@
 import Tags from "../Tags/index.jsx";
+import {useState} from "react";
 
 function IssuePopUp({id, title, summary, severity, tags, date_created, comment_count}) {
 
@@ -12,7 +13,7 @@ function IssuePopUp({id, title, summary, severity, tags, date_created, comment_c
     }
 
     return (
-        <div className="modal fade" id="ticketModal" tabIndex="-1" aria-labelledby="exampleModalLabel"
+        <div className="modal fade" id="popUpModal" tabIndex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div className="modal-dialog modal-lg">
                 <div className="modal-content">
