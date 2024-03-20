@@ -2,11 +2,13 @@ import {useEffect, useState} from "react";
 import IssueItem from "../IssueItem/index.jsx";
 import Modal from "../Modal/index.jsx";
 import IssuePopUp from "../IssuePopUp/index.jsx";
+import CreateIssuePopUp from "../CreateIssuePopUp/index.jsx";
 
-function IssuesList() {
+function IssuesList({makeToast}) {
     const [issues, setIssues] = useState([])
     const [selectedIssue, setSelectedIssue] = useState(null)
     const [showIssueModal, setShowIssueModal] = useState(false)
+    const [showCreateModal, setShowCreateModal] = useState(false)
 
     const getIssues = async () => {
         const response = await fetch('issues.json')
@@ -30,6 +32,14 @@ function IssuesList() {
         setSelectedIssue(null)
     }
 
+    const openCreateModal = () => {
+        setShowCreateModal(true)
+    }
+
+    const closeCreateModal = () => {
+        setShowCreateModal(false)
+    }
+
     return (
         <>
             <main className="col-9">
@@ -45,7 +55,16 @@ function IssuesList() {
                             <li><a className="dropdown-item" href="#">Most Comments</a></li>
                         </ul>
                     </div>
-                    <button className="float-end btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Report issue +</button>
+                    <button className="float-end btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        onClick={openCreateModal}>
+                        Report issue +
+                    </button>
+                    {
+                        showCreateModal &&
+                        <Modal closeModal={closeCreateModal}>
+                            <CreateIssuePopUp closeModal={closeCreateModal} showToast={makeToast}/>
+                        </Modal>
+                    }
                 </div>
                 {
                     issues.map(issue =>
@@ -72,7 +91,6 @@ function IssuesList() {
                     />
                 </Modal>
             }
-
         </>
     )
 }
