@@ -65,9 +65,11 @@ function IssuesList() {
             </main>
             {
                 showIssueModal &&
-                <Modal closeModal={unselectIssue} title={""} severity={""}>
-                    <h1>hello</h1>
-                    {/*<IssuePopUp></IssuePopUp>*/}
+                <Modal closeModal={unselectIssue}>
+                    <IssuePopUp
+                        closeModal={unselectIssue}
+                        id={selectedIssue}
+                    />
                 </Modal>
             }
 
