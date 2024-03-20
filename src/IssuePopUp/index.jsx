@@ -52,7 +52,7 @@ function IssuePopUp({closeModal, id}) {
                     <div className="mb-3">
                         <p><strong>Tags:</strong></p>
                         {
-                            issue.tags.map(tag => <span className="badge text-bg-light">{tag}</span>)
+                            issue.tags.map((tag, index) => <span key={index} className="badge text-bg-light">{tag}</span>)
                         }
                     </div>
 
