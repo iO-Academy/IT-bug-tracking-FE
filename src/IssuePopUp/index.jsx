@@ -65,7 +65,7 @@ function IssuePopUp({closeModal, id}) {
                                     Conversation
                                 </button>
                             </h2>
-                            <Collapse toggle={commentToggle} comments={issue.comments}>
+                            <Collapse className="position-relative" toggle={commentToggle} comments={issue.comments}>
                                 {
                                     issue.comments.map(comment =>
                                         <IssueComment
@@ -74,7 +74,11 @@ function IssuePopUp({closeModal, id}) {
                                             comment={comment.comment}
                                             dateCreated={comment.date_created}
                                         />
-                                )}
+                                    )
+                                }
+                                <button className="btn btn-primary my-1 mx-3" type="button" >
+                                    Add Comment
+                                </button>
                             </Collapse>
                         </div>
                     </div>
