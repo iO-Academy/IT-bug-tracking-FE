@@ -1,6 +1,7 @@
 import Tags from "../Tags/index.jsx";
 import React, {useEffect, useState} from "react";
 import Collapse from "../Collapse/index.jsx";
+import IssueComment from "../IssueComment/index.jsx";
 
 function IssuePopUp({closeModal, id}) {
     const [issue, setIssue] = useState(null)
@@ -50,11 +51,9 @@ function IssuePopUp({closeModal, id}) {
                     <p>{issue.description}</p>
                     <div className="mb-3">
                         <p><strong>Tags:</strong></p>
-                        <span className="badge text-bg-light">Tag</span><span
-                        className="badge text-bg-light">Tag</span><span
-                        className="badge text-bg-light">Tag</span><span
-                        className="badge text-bg-light">Tag</span><span
-                        className="badge text-bg-light">Tag</span><span className="badge text-bg-light">Tag</span>
+                        {
+                            issue.tags.map(tag => <span className="badge text-bg-light">{tag}</span>)
+                        }
                     </div>
 
                     <div className="accordion" id="accordionExample">
@@ -66,7 +65,17 @@ function IssuePopUp({closeModal, id}) {
                                     Conversation
                                 </button>
                             </h2>
-                            <Collapse toggle={commentToggle} comments={issue.comments}></Collapse>
+                            <Collapse toggle={commentToggle} comments={issue.comments}>
+                                {
+                                    issue.comments.map(comment =>
+                                        <IssueComment
+                                            key={comment.date_created}
+                                            name={comment.name}
+                                            comment={comment.comment}
+                                            dateCreated={comment.date_created}
+                                        />
+                                )}
+                            </Collapse>
                         </div>
                     </div>
                 </div>
