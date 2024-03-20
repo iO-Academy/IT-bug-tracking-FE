@@ -10,8 +10,8 @@ function IssuesList() {
 
     const getIssues = async () => {
         const response = await fetch('issues.json')
-        const body = await response.json()
-        setIssues(body.issues)
+        const data = await response.json()
+        setIssues(data.issues)
     }
 
     useEffect(() => {
@@ -21,7 +21,6 @@ function IssuesList() {
     useEffect(() => {
         if (selectedIssue != null) {
             setShowIssueModal(true)
-            console.log(`Selected issue is ${selectedIssue}`)
         } else {
             setShowIssueModal(false)
         }

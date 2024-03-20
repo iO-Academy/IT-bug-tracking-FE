@@ -8,14 +8,14 @@ function Sidebar() {
 
     const getSeverities = async () => {
         const response = await fetch('severities.json')
-        const body = await response.json()
-        setSeverities(body.severities)
+        const data = await response.json()
+        setSeverities(data.severities)
     }
 
     const getTags = async () => {
         const response = await fetch('tags.json')
-        const body = await response.json()
-        setTags(body.tags)
+        const data = await response.json()
+        setTags(data.tags)
     }
 
     useEffect(() => {
