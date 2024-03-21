@@ -52,6 +52,19 @@ function IssuePopUp({closeModal, id}) {
         }
     }
 
+    const markComplete = async () => {
+        const params = new URLSearchParams({id: issueId})
+        const response = await fetch(`complete.json?${params}`)
+        const responseData = await response.json()
+
+        if ( response.ok ) {
+            // makeToast("success", responseData.message)
+            closeModal()
+        } else {
+            // makeToast("danger", responseData.message)
+        }
+    }
+
     if (issue != null) {
         return (
             <>
@@ -140,7 +153,7 @@ function IssuePopUp({closeModal, id}) {
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-success">Mark as complete</button>
+                    <button role="button" className="btn btn-success" onClick={markComplete}>Mark as complete</button>
                 </div>
             </>
         )
