@@ -48,7 +48,9 @@ function IssuePopUp({closeModal, id}) {
                     <p><strong>Reporter</strong>: {issue.reporter.name}</p>
                     <p><strong>Department</strong>: {issue.reporter.department}</p>
                     <h6><strong>Description:</strong></h6>
-                    <p>{issue.description}</p>
+                    {
+                        issue.description.split('\n\n').map((paragraph, index) => <p key={index}>{paragraph}</p>)
+                    }
                     <div className="mb-3">
                         <p><strong>Tags:</strong></p>
                         {
@@ -65,7 +67,7 @@ function IssuePopUp({closeModal, id}) {
                                     Conversation
                                 </button>
                             </h2>
-                            <Collapse className="position-relative" toggle={commentToggle} comments={issue.comments}>
+                            <Collapse toggle={commentToggle} comments={issue.comments}>
                                 {
                                     issue.comments.map(comment =>
                                         <IssueComment
@@ -76,9 +78,9 @@ function IssuePopUp({closeModal, id}) {
                                         />
                                     )
                                 }
-                                <button className="btn btn-primary my-1 mx-3" type="button" >
-                                    Add Comment
-                                </button>
+                                <div className={"text-end"}>
+                                    <button className="btn btn-primary" type="button" >Add Comment</button>
+                                </div>
                             </Collapse>
                         </div>
                     </div>
