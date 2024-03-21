@@ -7,6 +7,7 @@ function IssuePopUp({closeModal, id}) {
     const [issue, setIssue] = useState(null)
     const [issueId, setIssueId] = useState(null)
     const [commentToggle, setCommentToggle] = useState(false)
+    const [newCommentToggle, setNewCommentToggle] = useState(false)
 
     const severityColorMap = {
         "Critical": "text-dark",
@@ -29,6 +30,8 @@ function IssuePopUp({closeModal, id}) {
     }, [id]);
 
     const toggleComments = () => setCommentToggle(!commentToggle)
+
+    const toggleNewComment = () => setNewCommentToggle(!newCommentToggle)
 
     if (issue != null) {
         return (
@@ -78,9 +81,22 @@ function IssuePopUp({closeModal, id}) {
                                         />
                                     )
                                 }
-                                <div className={"text-end"}>
-                                    <button className="btn btn-primary" type="button" >Add Comment</button>
-                                </div>
+                                {
+                                    newCommentToggle &&
+                                    <>
+                                        <textarea className="w-100"></textarea>
+                                        <div className={"text-end"}>
+                                            <button className="btn btn-primary me-3" style={{minWidth: '96px'}} role="button" onClick={toggleNewComment}>Post</button>
+                                            <button className="btn btn-secondary" style={{minWidth: '96px'}} role="button" onClick={toggleNewComment}>Cancel</button>
+                                        </div>
+                                    </>
+                                }
+                                {
+                                    !newCommentToggle &&
+                                    <div className={"text-end"}>
+                                        <button className="btn btn-primary" style={{minWidth: '96px'}} role="button" onClick={toggleNewComment}>Add Comment</button>
+                                    </div>
+                                }
                             </Collapse>
                         </div>
                     </div>
