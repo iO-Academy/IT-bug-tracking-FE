@@ -10,12 +10,12 @@ function IssuePopUp({closeModal, id}) {
     const [newCommentToggle, setNewCommentToggle] = useState(false)
 
     const severityColorMap = {
-        "Critical": "text-dark",
-        "Severe": "text-danger",
-        "Moderate": "text-warning",
-        "Low": "text-success",
-        "Info": "text-info",
-        "Unknown": "text-secondary",
+        "Critical": "dark",
+        "Severe": "danger",
+        "Moderate": "warning",
+        "Low": "success",
+        "Info": "info",
+        "Unknown": "secondary",
     }
 
     const getIssue = async (id) => {
@@ -70,11 +70,9 @@ function IssuePopUp({closeModal, id}) {
             <>
                 <div className="modal-header">
                     <h1 className="modal-title fs-5">{issue.title}</h1>
-                    <div>
-                        <span className="badge text-bg-warning">{issue.severity}</span>
-                    </div>
-                    <div>
-                        <button onClick={closeModal} type="button" className="btn-close align-top"
+                    <div className="text-end">
+                        <span className={`badge text-end align-middle me-3 text-bg-${severityColorMap[issue.severity]}`}>{issue.severity}</span>
+                        <button onClick={closeModal} type="button" className="btn-close align-middle"
                                 data-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
