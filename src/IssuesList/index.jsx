@@ -62,7 +62,7 @@ function IssuesList({makeToast}) {
                     {
                         showCreateModal &&
                         <Modal closeModal={closeCreateModal}>
-                            <CreateIssuePopUp closeModal={closeCreateModal} showToast={makeToast}/>
+                            <CreateIssuePopUp closeModal={closeCreateModal} makeToast={makeToast}/>
                         </Modal>
                     }
                 </div>

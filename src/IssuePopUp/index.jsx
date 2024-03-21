@@ -33,6 +33,25 @@ function IssuePopUp({closeModal, id}) {
 
     const toggleNewComment = () => setNewCommentToggle(!newCommentToggle)
 
+    const postNewComment = async (e) => {
+        e.preventDefault()
+        const commentFormData = new FormData(document.querySelector('#comment-form'))
+        const sendData = Object.fromEntries(commentFormData)
+
+        const response = await fetch('post-comment-success.json', {
+            method: 'POST',
+            body: JSON.stringify(sendData)
+        })
+        const responseData = await response.json()
+
+        if ( response.ok ) {
+            // makeToast("success", responseData.message)
+            setNewCommentToggle(false)
+        } else {
+            // makeToast("danger", responseData.message)
+        }
+    }
+
     if (issue != null) {
         return (
             <>
@@ -84,11 +103,30 @@ function IssuePopUp({closeModal, id}) {
                                 {
                                     newCommentToggle &&
                                     <>
-                                        <textarea className="w-100"></textarea>
-                                        <div className={"text-end"}>
-                                            <button className="btn btn-primary me-3" style={{minWidth: '96px'}} role="button" onClick={toggleNewComment}>Post</button>
-                                            <button className="btn btn-secondary" style={{minWidth: '96px'}} role="button" onClick={toggleNewComment}>Cancel</button>
-                                        </div>
+                                        <form id="comment-form">
+                                            <div className="grid g-2 align-items-start">
+                                                <div className="row mb-2">
+                                                    <div className="col-2">
+                                                        <label className="col-form-label" htmlFor="comment-name">Name:</label>
+                                                    </div>
+                                                    <div className="col-5">
+                                                        <input type="text" className="form-control w-100" id="comment-name" name="name" />
+                                                    </div>
+                                                </div>
+                                                <div className="row mb-3">
+                                                    <div className="col-2">
+                                                        <label className="col-form-label" htmlFor="comment-input">Comment:</label>
+                                                    </div>
+                                                    <div className="col-10">
+                                                        <textarea className="form-control" id="comment-input" name="comment"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className={"text-end"}>
+                                                <button className="btn btn-primary me-3" style={{minWidth: '96px'}} role="button" onClick={postNewComment}>Post</button>
+                                                <button className="btn btn-secondary" style={{minWidth: '96px'}} role="button" onClick={toggleNewComment}>Cancel</button>
+                                            </div>
+                                        </form>
                                     </>
                                 }
                                 {

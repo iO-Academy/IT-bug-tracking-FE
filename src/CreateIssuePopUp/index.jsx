@@ -1,6 +1,7 @@
-function CreateIssuePopUp({closeModal, showToast}) {
-    const createNewIssue = async () => {
-        const formData = new FormData(document.querySelector('form'))
+function CreateIssuePopUp({closeModal, makeToast}) {
+    const createNewIssue = async (e) => {
+        e.preventDefault()
+        const formData = new FormData(document.querySelector('#new-issue-form'))
         const sendData = Object.fromEntries(formData)
 
         const response = await fetch('create-issue-success.json', {
@@ -10,10 +11,10 @@ function CreateIssuePopUp({closeModal, showToast}) {
         const responseData = await response.json()
 
         if ( response.ok ) {
-            showToast("success", responseData.message)
+            makeToast("success", responseData.message)
             closeModal()
         } else {
-            showToast("danger", responseData.message)
+            makeToast("danger", responseData.message)
         }
     }
 
@@ -24,7 +25,7 @@ function CreateIssuePopUp({closeModal, showToast}) {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         onClick={closeModal}></button>
             </div>
-            <form className="modal-body">
+            <form className="modal-body" id="new-issue-form">
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Your Name</label>
                     <input type="text" className="form-control" id="name" name="name"/>
@@ -107,9 +108,9 @@ function CreateIssuePopUp({closeModal, showToast}) {
                 </div>
             </form>
             <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close
+                <button role="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close
                 </button>
-                <button type="button" className="btn btn-primary" onClick={createNewIssue}>Create</button>
+                <button role="button" className="btn btn-primary" onClick={createNewIssue}>Create</button>
             </div>
         </div>
     )
