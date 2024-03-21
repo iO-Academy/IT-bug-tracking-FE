@@ -9,6 +9,7 @@ function IssuesList({makeToast}) {
     const [selectedIssue, setSelectedIssue] = useState(null)
     const [showIssueModal, setShowIssueModal] = useState(false)
     const [showCreateModal, setShowCreateModal] = useState(false)
+    const [showOrderDropdown, setShowOrderDropdown] = useState(false)
 
     const getIssues = async () => {
         const response = await fetch('issues.json')
@@ -40,15 +41,17 @@ function IssuesList({makeToast}) {
         setShowCreateModal(false)
     }
 
+    const toggleOrderDropdown = () => setShowOrderDropdown(!showOrderDropdown)
+
     return (
         <>
             <main className="col-9">
                 <div className="border rounded bg-white p-3 mb-3 d-flex justify-content-between align-items-center">
                     <div className="dropdown">
-                        <button className="btn btn-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button className={"btn btn-white dropdown-toggle" + (showOrderDropdown ? " show" : "")} type="button" data-bs-toggle="dropdown" aria-expanded={showOrderDropdown} onClick={toggleOrderDropdown}>
                             Most Recent
                         </button>
-                        <ul className="dropdown-menu">
+                        <ul className={"dropdown-menu" + (showOrderDropdown ? " show" : "")}>
                             <li><a className="dropdown-item" href="#">Most Recent</a></li>
                             <li><a className="dropdown-item" href="#">Oldest</a></li>
                             <li><a className="dropdown-item" href="#">Most Severe</a></li>
@@ -56,7 +59,7 @@ function IssuesList({makeToast}) {
                         </ul>
                     </div>
                     <button className="float-end btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        onClick={openCreateModal}>
+                        onClick={openCreateModal} type="button">
                         Report issue +
                     </button>
                     {

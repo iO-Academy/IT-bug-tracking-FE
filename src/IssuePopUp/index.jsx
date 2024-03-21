@@ -134,8 +134,8 @@ function IssuePopUp({closeModal, id}) {
                                                 </div>
                                             </div>
                                             <div className={"text-end"}>
-                                                <button className="btn btn-primary me-3" style={{minWidth: '96px'}} role="button" onClick={postNewComment}>Post</button>
-                                                <button className="btn btn-secondary" style={{minWidth: '96px'}} role="button" onClick={toggleNewComment}>Cancel</button>
+                                                <button className="btn btn-primary me-3" style={{minWidth: '96px'}} type="button" onClick={postNewComment}>Post</button>
+                                                <button className="btn btn-secondary" style={{minWidth: '96px'}} type="button" onClick={toggleNewComment}>Cancel</button>
                                             </div>
                                         </form>
                                     </>
@@ -143,7 +143,7 @@ function IssuePopUp({closeModal, id}) {
                                 {
                                     !newCommentToggle &&
                                     <div className={"text-end"}>
-                                        <button className="btn btn-primary" style={{minWidth: '96px'}} role="button" onClick={toggleNewComment}>Add Comment</button>
+                                        <button className="btn btn-primary" style={{minWidth: '96px'}} type="button" onClick={toggleNewComment}>Add Comment</button>
                                     </div>
                                 }
                             </Collapse>
@@ -151,7 +151,7 @@ function IssuePopUp({closeModal, id}) {
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <button role="button" className="btn btn-success" onClick={markComplete}>Mark as complete</button>
+                    <button type="button" className="btn btn-success" onClick={markComplete}>Mark as complete</button>
                 </div>
             </>
         )
