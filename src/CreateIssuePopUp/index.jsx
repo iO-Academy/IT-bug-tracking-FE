@@ -1,28 +1,29 @@
-import {useState} from "react";
-
 function CreateIssuePopUp({closeModal, showToast}) {
-    const [success, setSuccess] = useState(false)
-
-
     const createNewIssue = async () => {
         const formData = new FormData(document.querySelector('form'))
-        const data = Object.fromEntries(formData)
+        const sendData = Object.fromEntries(formData)
 
-        const response = await fetch('success.json', {
+        const response = await fetch('create-issue-success.json', {
             method: 'POST',
-            body: JSON.stringify(data)
+            body: JSON.stringify(sendData)
         })
+        const responseData = await response.json()
 
-        if ( response.status === 200 ) {
-            showToast("success", "New Issue Submitted")
+        if ( response.ok ) {
+            showToast("success", responseData.message)
             closeModal()
         } else {
-            showToast("danger", "There was a problem")
+            showToast("danger", responseData.message)
         }
     }
 
-    const Form = () => {
-        return (
+    return (
+        <div className="modal-content">
+            <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">Report new issue</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        onClick={closeModal}></button>
+            </div>
             <form className="modal-body">
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Your Name</label>
@@ -105,18 +106,6 @@ function CreateIssuePopUp({closeModal, showToast}) {
                     </div>
                 </div>
             </form>
-        )
-    }
-
-
-    return (
-        <div className="modal-content">
-            <div className="modal-header">
-                <h1 className="modal-title fs-5" id="exampleModalLabel">Report new issue</h1>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        onClick={closeModal}></button>
-            </div>
-            <Form/>
             <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close
                 </button>
