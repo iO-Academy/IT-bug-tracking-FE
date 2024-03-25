@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import Tags from "../Tags/index.jsx";
 import Severity from "../Severity/index.jsx";
 
-function Sidebar() {
+function Sidebar(selectTag, selectSeverities) {
     const [severities, setSeverities] = useState([])
     const [tags, setTags] = useState([])
 
@@ -10,6 +10,15 @@ function Sidebar() {
         const response = await fetch('severities.json')
         const data = await response.json()
         setSeverities(data.severities)
+    }
+
+    const getSelectedSeverities = () => {
+        const severityCheckboxes = Array.from(document.querySelectorAll('.severity-checkbox'))
+        const selected = severityCheckboxes.reduce((acc, curr) => {
+            return {...acc, [curr.value]: curr.checked }
+        }, {})
+        console.log(selected)
+        selectSeverities(selected)
     }
 
     const getTags = async () => {
@@ -29,20 +38,21 @@ function Sidebar() {
                 <h1>IT Support Tracking</h1>
             </div>
             <div className="border rounded bg-white p-3 mb-3">
-                <h6 className="mb-0">Filters</h6>
-            </div>
-            <div className="border rounded bg-white p-3 mb-3">
-                {severities && severities.map(severity => {
-                    return (
-                        <label className={"d-block"} key={severity.name}>
-                            <input type="checkbox" value={severity.id} />
-                            <Severity classes='ms-1' severity={severity} />
-                        </label>
-                    )
-                })}
-            </div>
-            <div className="border rounded bg-white p-3 mb-3">
-                {tags && <Tags tags={tags} />}
+                <h6 className="mb-3">Filters:</h6>
+                <div className="border rounded bg-white p-3 mb-3">
+                    {severities && severities.map(severity => {
+                        return (
+                            <label className={"d-block"} key={severity.name}>
+                                <input className="severity-checkbox" id={severity.name.toLowerCase()}
+                                       type="checkbox" value={severity.id} onClick={getSelectedSeverities} />
+                                <Severity classes='ms-1' severity={severity} />
+                            </label>
+                        )
+                    })}
+                </div>
+                <div className="border rounded bg-white p-3 mb-3">
+                    {tags && <Tags tags={tags} />}
+                </div>
             </div>
         </aside>
     )

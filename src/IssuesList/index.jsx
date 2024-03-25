@@ -4,31 +4,11 @@ import Modal from "../Modal/index.jsx";
 import IssuePopUp from "../IssuePopUp/index.jsx";
 import CreateIssuePopUp from "../CreateIssuePopUp/index.jsx";
 
-function IssuesList({makeToast}) {
-    const [issues, setIssues] = useState([])
+function IssuesList({issues, sortOrder, setSortOrder, makeToast}) {
     const [selectedIssue, setSelectedIssue] = useState(null)
     const [showIssueModal, setShowIssueModal] = useState(false)
     const [showCreateModal, setShowCreateModal] = useState(false)
     const [showOrderDropdown, setShowOrderDropdown] = useState(false)
-    const [sortOrder, setSortOrder] = useState('')
-
-    const getIssues = async () => {
-        let request = {}
-        const tags = ''
-        const severity = []
-        tags && (request.tags = tags)
-        severity.length && (request.severity = severity)
-        sortOrder && (request.order = sortOrder)
-
-        const params = new URLSearchParams(request)
-        const response = await fetch(`issues.json?${params}`)
-        const data = await response.json()
-        setIssues(data.issues)
-    }
-
-    useEffect(() => {
-        getIssues()
-    }, [sortOrder]);
 
     useEffect(() => {
         if (selectedIssue != null) {
