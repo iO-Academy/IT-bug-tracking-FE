@@ -1,8 +1,7 @@
 export default function Modal({closeModal, children}) {
 
-    const closeMe = event => {
-        if (event.target.id === 'me') {
-            console.log('carrot')
+    const close = (event) => {
+        if (event.target.id === 'modal-background') {
             closeModal()
         }
     }
@@ -10,7 +9,7 @@ export default function Modal({closeModal, children}) {
     return (
         <>
             <div className="modal-backdrop fade show"></div>
-            <div className="modal open d-block" id="me" onClick={closeMe} tabIndex="-1">
+            <div className="modal open d-block" id="modal-background" onClick={close} tabIndex="-1">
                 <div className="modal-dialog modal-lg">
                     <div className="modal-content">
                         {children}

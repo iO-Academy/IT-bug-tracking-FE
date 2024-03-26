@@ -1,4 +1,3 @@
-import IssueComment from "../IssueComment/index.jsx";
 import React from "react";
 
 function Collapse({toggle, children}) {

@@ -1,6 +1,6 @@
 function CreateIssuePopUp({closeModal, makeToast}) {
-    const createNewIssue = async (e) => {
-        e.preventDefault()
+    const createNewIssue = async (event) => {
+        event.preventDefault()
         const formData = new FormData(document.querySelector('#new-issue-form'))
         const sendData = Object.fromEntries(formData)
 

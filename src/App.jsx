@@ -55,12 +55,6 @@ function App() {
         setSelectedTag(selection)
     }
 
-    const clearFilters = () => {
-        setSelectedSeverities([])
-        setSelectedTag('')
-        setSortOrder('')
-    }
-
     return (
       <>
           {
