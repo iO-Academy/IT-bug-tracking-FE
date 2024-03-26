@@ -7,6 +7,22 @@
     {
       "name": "Severe",
       "id": 2
+    },
+    {
+      "name": "Moderate",
+      "id": 3
+    },
+    {
+      "name": "Low",
+      "id": 4
+    },
+    {
+      "name": "Info",
+      "id": 5
+    },
+    {
+      "name": "Unknown",
+      "id": 0
     }
   ]
 }
