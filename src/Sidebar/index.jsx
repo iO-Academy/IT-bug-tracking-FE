@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import Tags from "../Tags/index.jsx";
 import Severity from "../Severity/index.jsx";
 
-function Sidebar(selectTag, selectSeverities) {
+function Sidebar({selectTag, selectSeverities}) {
     const [severities, setSeverities] = useState([])
     const [tags, setTags] = useState([])
 
@@ -15,9 +15,12 @@ function Sidebar(selectTag, selectSeverities) {
     const getSelectedSeverities = () => {
         const severityCheckboxes = Array.from(document.querySelectorAll('.severity-checkbox'))
         const selected = severityCheckboxes.reduce((acc, curr) => {
-            return {...acc, [curr.value]: curr.checked }
-        }, {})
-        console.log(selected)
+            if (curr.checked) {
+                return [...acc, curr.value]
+            } else {
+                return [...acc]
+            }
+        }, [])
         selectSeverities(selected)
     }
 
@@ -25,6 +28,12 @@ function Sidebar(selectTag, selectSeverities) {
         const response = await fetch('tags.json')
         const data = await response.json()
         setTags(data.tags)
+    }
+
+    const getSelectedTag = (event) => {
+        event.preventDefault()
+        const tag = event.target.id
+        selectTag(tag)
     }
 
     useEffect(() => {
@@ -51,7 +60,7 @@ function Sidebar(selectTag, selectSeverities) {
                     })}
                 </div>
                 <div className="border rounded bg-white p-3 mb-3">
-                    {tags && <Tags tags={tags} />}
+                    {tags && <Tags tags={tags} selectTag={getSelectedTag} />}
                 </div>
             </div>
         </aside>

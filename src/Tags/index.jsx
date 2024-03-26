@@ -1,10 +1,10 @@
-function Tags({tags}) {
+function Tags({tags, selectTag}) {
 
     return (
         <>
             {tags.map(tag => {
                 return (
-                    <span className="badge text-bg-light me-1 mb-1" key={tag.name}>{tag.name}</span>
+                    <a className="badge text-bg-light me-1 mb-1 text-decoration-none tag" id={tag.name} key={tag.name} href="#" onClick={selectTag}>{tag.name}</a>
                 )
             })}
         </>

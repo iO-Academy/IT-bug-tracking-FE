@@ -16,8 +16,8 @@ function App() {
         selectedTag && (request.tag = selectedTag)
         selectedSeverities.length && (request.severity = selectedSeverities)
         sortOrder && (request.order = sortOrder)
-
         const params = new URLSearchParams(request)
+
         const response = await fetch(`issues.json?${params}`)
         const data = await response.json()
         setIssues(data.issues)
@@ -53,6 +53,12 @@ function App() {
 
     const selectTag = (selection) => {
         setSelectedTag(selection)
+    }
+
+    const clearFilters = () => {
+        setSelectedSeverities([])
+        setSelectedTag('')
+        setSortOrder('')
     }
 
     return (
