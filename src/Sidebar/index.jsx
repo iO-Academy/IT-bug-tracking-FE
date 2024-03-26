@@ -15,11 +15,7 @@ function Sidebar({selectTag, selectSeverities}) {
     const getSelectedSeverities = () => {
         const severityCheckboxes = Array.from(document.querySelectorAll('.severity-checkbox'))
         const selected = severityCheckboxes.reduce((acc, curr) => {
-            if (curr.checked) {
-                return [...acc, curr.value]
-            } else {
-                return [...acc]
-            }
+            return curr.checked ? [...acc, curr.value] : [...acc]
         }, [])
         selectSeverities(selected)
     }
