@@ -11,21 +11,21 @@ function App() {
     const [showToast, setShowToast] = useState(false)
     const [showingToast, setShowingToast] = useState(false)
 
-    const getIssues = useCallback(async () => {
-        let request = {}
-        selectedTag && (request.tag = selectedTag)
-        selectedSeverities.length && (request.severity = selectedSeverities)
-        sortOrder && (request.order = sortOrder)
-        const params = new URLSearchParams(request)
-
-        const response = await fetch(`issues.json?${params}`)
-        const data = await response.json()
-        setIssues(data.issues)
-    }, [selectedTag, selectedSeverities, sortOrder])
-
     useEffect(() => {
+        const getIssues = async () => {
+            let request = {}
+            selectedTag && (request.tag = selectedTag)
+            selectedSeverities.length && (request.severity = selectedSeverities)
+            sortOrder && (request.order = sortOrder)
+            const params = new URLSearchParams(request)
+
+            const response = await fetch(`issues.json?${params}`)
+            const data = await response.json()
+            setIssues(data.issues)
+        }
+
         getIssues()
-    }, [selectedTag, selectedSeverities, sortOrder, getIssues]);
+    }, [selectedTag, selectedSeverities, sortOrder]);
 
     const makeToast = (type, message) => {
         setShowToast(true)
