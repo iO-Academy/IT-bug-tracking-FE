@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import Sidebar from "./Sidebar/index.jsx";
 import IssuesList from "./IssuesList/index.jsx";
 import Toast from "./Toast/index.jsx";

@@ -1,4 +1,3 @@
-import Tags from "../Tags/index.jsx";
 import React, {useEffect, useState} from "react";
 import Collapse from "../Collapse/index.jsx";
 import IssueComment from "../IssueComment/index.jsx";
