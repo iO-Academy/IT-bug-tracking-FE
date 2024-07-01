@@ -1,4 +1,10 @@
-function CreateIssuePopUp({closeModal, makeToast}) {
+import { useContext } from "react"
+import { ToastContext } from "../../contexts/ToastContext"
+import { useToast } from "../../hooks/useToast"
+
+function CreateIssuePopUp({ closeModal }) {
+    const toaster = useToast()
+
     const createNewIssue = async (event) => {
         event.preventDefault()
         const formData = new FormData(document.querySelector('#new-issue-form'))
@@ -11,10 +17,10 @@ function CreateIssuePopUp({closeModal, makeToast}) {
         const responseData = await response.json()
 
         if ( response.ok ) {
-            makeToast("success", responseData.message)
+            toaster.addToast("success", responseData.message)
             closeModal()
         } else {
-            makeToast("danger", responseData.message)
+            toaster.addToast("danger", responseData.message)
         }
     }
 

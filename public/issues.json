@@ -17,6 +17,42 @@
       "tags": [{"name": "Tag 1","id": 1}, {"name": "Tag 2","id": 2}],
       "date_created": "06/08/2023",
       "comment_count": 12
+    },
+    {
+      "id": 3,
+      "title": "Title of the ticket",
+      "summary": "The first 100 characters of the issue description",
+      "severity": "Low",
+      "tags": [{"name": "Tag 1","id": 1}, {"name": "Tag 2","id": 2}],
+      "date_created": "06/08/2023",
+      "comment_count": 12
+    },
+    {
+      "id": 4,
+      "title": "Title of the ticket",
+      "summary": "The first 100 characters of the issue description",
+      "severity": "Low",
+      "tags": [{"name": "Tag 1","id": 1}, {"name": "Tag 2","id": 2}],
+      "date_created": "06/08/2023",
+      "comment_count": 12
+    },
+    {
+      "id": 5,
+      "title": "Title of the ticket",
+      "summary": "The first 100 characters of the issue description",
+      "severity": "Low",
+      "tags": [{"name": "Tag 1","id": 1}, {"name": "Tag 2","id": 2}],
+      "date_created": "06/08/2023",
+      "comment_count": 12
+    },
+    {
+      "id": 6,
+      "title": "Title of the ticket",
+      "summary": "The first 100 characters of the issue description",
+      "severity": "Low",
+      "tags": [{"name": "Tag 1","id": 1}, {"name": "Tag 2","id": 2}],
+      "date_created": "06/08/2023",
+      "comment_count": 12
     }
   ]
 }

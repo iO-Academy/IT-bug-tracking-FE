@@ -1,10 +1,13 @@
 import {useEffect, useState} from "react";
 import Tags from "../Tags/index.jsx";
 import Severity from "../Severity/index.jsx";
+import { useToast } from "../../hooks/useToast.js";
 
 function Sidebar({selectTag, selectSeverities}) {
     const [severities, setSeverities] = useState([])
     const [tags, setTags] = useState([])
+
+    const toast = useToast()
 
     const getSeverities = async () => {
         const response = await fetch('severities.json')
@@ -59,6 +62,7 @@ function Sidebar({selectTag, selectSeverities}) {
                     {tags && <Tags tags={tags} selectTag={getSelectedTag} />}
                 </div>
             </div>
+            <button onClick={() => toast.addToast('success', 'test taost')}>Click</button>
         </aside>
     )
 }

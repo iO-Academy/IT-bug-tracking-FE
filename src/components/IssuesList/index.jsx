@@ -4,7 +4,7 @@ import Modal from "../Modal/index.jsx";
 import IssuePopUp from "../IssuePopUp/index.jsx";
 import CreateIssuePopUp from "../CreateIssuePopUp/index.jsx";
 
-function IssuesList({issues, sortOrder, setSortOrder, makeToast}) {
+function IssuesList({issues, sortOrder, setSortOrder}) {
     const [selectedIssue, setSelectedIssue] = useState(null)
     const [showIssueModal, setShowIssueModal] = useState(false)
     const [showCreateModal, setShowCreateModal] = useState(false)
@@ -69,14 +69,14 @@ function IssuesList({issues, sortOrder, setSortOrder, makeToast}) {
                     {
                         showCreateModal &&
                         <Modal closeModal={closeCreateModal}>
-                            <CreateIssuePopUp closeModal={closeCreateModal} makeToast={makeToast}/>
+                            <CreateIssuePopUp closeModal={closeCreateModal}/>
                         </Modal>
                     }
                 </div>
                 {
-                    issues.map(issue =>
-                        <IssueItem
-                            key={issue.id}
+                    issues.map((issue, index) => {
+                        return (<IssueItem
+                            key={index}
                             id={issue.id}
                             title={issue.title}
                             summary={issue.summary}
@@ -85,8 +85,8 @@ function IssuesList({issues, sortOrder, setSortOrder, makeToast}) {
                             date_created={issue.date_created}
                             comment_count={issue.comment_count}
                             setSelectedIssue={setSelectedIssue}
-                        />
-                    )
+                        />)
+                    })
                 }
             </main>
             {
