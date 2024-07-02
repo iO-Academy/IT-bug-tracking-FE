@@ -4,12 +4,12 @@ import BASE_URL from "../settings.js"
 export const SeveritiesContext = createContext([])
 
 export const severityColorMap = {
-    "Critical": "text-bg-dark",
-    "Severe": "text-bg-danger",
-    "Moderate": "text-bg-warning",
-    "Low": "text-bg-success",
-    "Info": "text-bg-info",
-    "Unknown": "text-bg-secondary",
+    "Critical": "dark",
+    "Severe": "danger",
+    "Moderate": "warning",
+    "Low": "success",
+    "Info": "info",
+    "Unknown": "secondary",
 }
 
 export function SeveritiesContextProvider({children}) {

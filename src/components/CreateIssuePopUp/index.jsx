@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { SeveritiesContext, severityColorMap } from '../../contexts/SeveritiesContext.jsx'
 import { useToasts } from '../../hooks/useToasts.js'
 import { useTags } from '../../hooks/useTags.js'
+import BASE_URL from '../../settings.js'
 
 function CreateIssuePopUp({ closeModal }) {
     const severities = useContext(SeveritiesContext)
@@ -27,12 +28,22 @@ function CreateIssuePopUp({ closeModal }) {
         }
     }
 
+    const handleAddNewTag = (e) => {
+        e.preventDefault()
+        console.log('hoi')
+    }
+
     return (
         <div className="modal-content">
             <div className="modal-header">
                 <h1 className="modal-title fs-5" id="exampleModalLabel">Report new issue</h1>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        onClick={closeModal}></button>
+                <button 
+                    type="button" 
+                    className="btn-close" 
+                    onClick={closeModal}
+                    data-bs-dismiss="modal" 
+                    aria-label="Close"
+                />
             </div>
             <form className="modal-body" id="new-issue-form">
                 <div className="mb-3">
@@ -61,43 +72,43 @@ function CreateIssuePopUp({ closeModal }) {
                     <div className="form-text">Please be as descriptive as possible</div>
                 </div>
                 <div className="mb-3">
-                    <div><strong>Severity:</strong></div>
+                    <div className='mb-2'><strong>Severity:</strong></div>
                     <div className="d-flex">
                         { severities.map(severity => {
                             return (
-                                <label className='pe-2' key={severity.id}>
-                                    <div className={`badge ${severityColorMap[severity.name]}`}>
+                                <div className={`form-check form-check-inline rounded text-bg-${severityColorMap[severity.name]}`}>
+                                    <label className='form-check-label p-1 mx-1' key={severity.id}>
                                         <input
                                             type="radio"
-                                            className='me-1'
+                                            className='form-check-input'
                                             name="severity" 
                                             id={severity.name.toLowerCase()}
                                             value={`${severity.id}`}
                                         />
                                         {severity.name}
-                                    </div>
-                                </label>
+                                    </label>
+                                </div>
                             )
                         })}
                     </div>
                 </div>
                 <div className="mb-3">
-                    <div><strong>Tags:</strong></div>
-                    <div className="d-flex">
-                        {
-                            tags.list.map((tag, index) => {
-                                return (
-                                    <label key={index}>
-                                        <input type="checkbox" name="tags"/>
-                                        <span className="badge text-bg-light">{tag.name}</span>
+                    <div className='mb-2'><strong>Tags:</strong></div>
+                    <div className="mb-3">
+                        { tags.list.map((tag, index) => {
+                            return (
+                                <div className="form-check form-check-inline border rounded">
+                                    <label key={index} className='form-check-label p-1 mx-1'>{tag.name}
+                                        <input type="checkbox" className='form-check-input' name="tags" value='' />
                                     </label>
-                                )
-                            })
-                        }
+                                </div>
+                            )
+                        })}
                     </div>
-                    <div>
-                        <label htmlFor="newtag">Add new tag</label>
-                        <input type="text" id="newtag" name="name"/>
+                    <div className='input-group mb-3'>
+                        <label htmlFor="newtag" className='input-group-text'>Add New Tag:</label>
+                        <input type="text" className='form-control' id="newtag" name="name"/>
+                        <button type='button' className='btn btn-outline-secondary' onClick={handleAddNewTag}>+</button>
                     </div>
                 </div>
             </form>

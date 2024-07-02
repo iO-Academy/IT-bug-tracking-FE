@@ -1,7 +1,4 @@
-import Tags from "../Tags/index.jsx";
-
 function IssueItem({id, title, summary, severity, tags, date_created, comment_count, setSelectedIssue}) {
-
     const severityColorMap = {
         "Critical": "text-dark",
         "Severe": "text-danger",
@@ -21,7 +18,16 @@ function IssueItem({id, title, summary, severity, tags, date_created, comment_co
             <div className="flex-fill">
                 <h4>{title}</h4>
                 <p>{summary}</p>
-                {tags && <Tags tags={tags} />}
+                { tags.map(tag => {
+                        return (
+                            <a 
+                                className="badge text-bg-light me-1 mb-1 text-decoration-none tag" 
+                                id={tag.name} key={tag.name} href="#"
+                            >
+                                {tag.name}
+                            </a>
+                        )
+                    })}
             </div>
             <div className="d-flex justify-content-between align-items-end flex-column mx-2">
                 <span><i className="bi bi-chat"></i> {comment_count}</span>
