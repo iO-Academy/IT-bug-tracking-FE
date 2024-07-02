@@ -1,8 +1,8 @@
 import { useEffect } from "react"
-import { useToast } from "../../hooks/useToast.js"
+import { useToasts } from "../../hooks/useToasts.js"
 
 function Toast({id, type, message}) {
-    const toaster = useToast()
+    const toaster = useToasts()
 
     const handleDismiss = () => {
         toaster.remove(id)

@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import Tags from "../Tags/index.jsx";
 import Severity from "../Severity/index.jsx";
-import BASE_URL from '../../settings.js'
 import { SeveritiesContext } from "../../contexts/SeveritiesContext.jsx";
+import { TagsContext } from "../../contexts/TagsContext.jsx";
+import { useTags } from "../../hooks/useTags.js";
 
 function Sidebar({selectTag, selectSeverities}) {
     const severities = useContext(SeveritiesContext)
-    const [tags, setTags] = useState([])
+    const tags = useTags()
 
     const getSelectedSeverities = () => {
         const severityCheckboxes = Array.from(document.querySelectorAll('.severity-checkbox'))
@@ -16,21 +17,13 @@ function Sidebar({selectTag, selectSeverities}) {
         selectSeverities(selected)
     }
 
-    const getTags = async () => {
-        const response = await fetch('tags.json')
-        const data = await response.json()
-        setTags(data.tags)
-    }
+
 
     const getSelectedTag = (event) => {
         event.preventDefault()
         const tag = event.target.id
         selectTag(tag)
     }
-
-    useEffect(() => {
-        getTags()
-    }, []);
 
     return (
         <aside className={"col-3"}>
@@ -51,7 +44,7 @@ function Sidebar({selectTag, selectSeverities}) {
                     })}
                 </div>
                 <div className="border rounded bg-white p-3 mb-3">
-                    {tags && <Tags tags={tags} selectTag={getSelectedTag} />}
+                    {tags && <Tags tags={tags.list} selectTag={getSelectedTag} />}
                 </div>
             </div>
         </aside>

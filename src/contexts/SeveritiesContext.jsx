@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react"
+import BASE_URL from "../settings.js"
 
 export const SeveritiesContext = createContext([])
 

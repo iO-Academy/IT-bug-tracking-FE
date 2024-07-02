@@ -1,10 +1,12 @@
 import { useContext } from 'react'
 import { SeveritiesContext, severityColorMap } from '../../contexts/SeveritiesContext.jsx'
-import { useToast } from '../../hooks/useToast.js'
+import { useToasts } from '../../hooks/useToasts.js'
+import { useTags } from '../../hooks/useTags.js'
 
 function CreateIssuePopUp({ closeModal }) {
     const severities = useContext(SeveritiesContext)
-    const toaster = useToast()
+    const tags = useTags()
+    const toaster = useToasts()
 
     const createNewIssue = async (event) => {
         event.preventDefault()
@@ -16,7 +18,7 @@ function CreateIssuePopUp({ closeModal }) {
             body: JSON.stringify(sendData)
         })
         const responseData = await response.json()
-
+        
         if ( response.ok ) {
             toaster.success(responseData.message)
             closeModal()
@@ -79,32 +81,23 @@ function CreateIssuePopUp({ closeModal }) {
                         })}
                     </div>
                 </div>
-
                 <div className="mb-3">
                     <div><strong>Tags:</strong></div>
-                    <label>
-                        <input type="checkbox" name="tags"/>
-                        <span className="badge text-bg-light">Tag 1</span>
-                    </label>
-                    <label>
-                        <input type="checkbox" name="tags"/>
-                        <span className="badge text-bg-light">Tag 2</span>
-                    </label>
-                    <label>
-                        <input type="checkbox" name="tags"/>
-                        <span className="badge text-bg-light">Tag 3</span>
-                    </label>
-                    <label>
-                        <input type="checkbox" name="tags"/>
-                        <span className="badge text-bg-light">Tag 4</span>
-                    </label>
-                    <label>
-                        <input type="checkbox" name="tags"/>
-                        <span className="badge text-bg-light">Tag 5</span>
-                    </label>
+                    <div className="d-flex">
+                        {
+                            tags.list.map((tag, index) => {
+                                return (
+                                    <label key={index}>
+                                        <input type="checkbox" name="tags"/>
+                                        <span className="badge text-bg-light">{tag.name}</span>
+                                    </label>
+                                )
+                            })
+                        }
+                    </div>
                     <div>
                         <label htmlFor="newtag">Add new tag</label>
-                        <input type="text" id="newtag" name="newtag"/>
+                        <input type="text" id="newtag" name="name"/>
                     </div>
                 </div>
             </form>
