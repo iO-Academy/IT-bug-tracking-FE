@@ -16,15 +16,22 @@ function Toast({id, type, message}) {
 
     return (
         <div
-            className={`alert z-3 mx-3 alert-${type}`}
+            className={`toast d-block align-items-center border-0`}
             role="alert"
+            aria-live="assertive" aria-atomic="true"
         >
-            <h4>{id + ' ' + type}</h4>
-            <p>{message}</p>
-            <button onClick={handleDismiss} type="button" className="btn-close align-middle"
-                                data-dismiss="modal" aria-label="Dismiss">
-                X
-            </button>
+            <div className={`toast-header text-bg-${type}`}></div>
+            <div className="d-flex">
+                <div className="toast-body">
+                    {message}
+                </div>
+                <button 
+                    type="button" 
+                    className="btn-close me-2 m-auto"
+                    onClick={handleDismiss}
+                    aria-label="Close"
+                />
+            </div>
         </div>
     )
 }
