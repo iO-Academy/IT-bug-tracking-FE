@@ -1,15 +1,15 @@
 import { useEffect } from "react"
-import { useToast } from "../../hooks/useToast"
+import { useToast } from "../../hooks/useToast.js"
 
 function Toast({id, type, message}) {
-    const toast = useToast()
+    const toaster = useToast()
 
     const dismiss = () => {
-        toast.removeToast(id)
+        toaster.remove(id)
     }
 
     useEffect(() => {
-        const timer = setTimeout(() => {toast.removeToast(id)}, 5000)
+        const timer = setTimeout(() => {toaster.remove(id)}, 5000)
 
         return () => clearTimeout(timer)
     }, [])

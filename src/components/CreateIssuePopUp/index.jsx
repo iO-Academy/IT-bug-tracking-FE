@@ -17,10 +17,10 @@ function CreateIssuePopUp({ closeModal }) {
         const responseData = await response.json()
 
         if ( response.ok ) {
-            toaster.addToast("success", responseData.message)
+            toaster.add("success", responseData.message)
             closeModal()
         } else {
-            toaster.addToast("danger", responseData.message)
+            toaster.add("danger", responseData.message)
         }
     }
 

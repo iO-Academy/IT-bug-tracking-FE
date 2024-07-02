@@ -1,23 +1,31 @@
-import { createContext, useReducer, useState } from "react"
-import { toastReducer } from '../reducers/toastReducer.js'
+import { createContext, useState } from "react"
 import Toasts from '../components/Toasts/index.jsx'
 
 export const ToastContext = createContext()
 
 export function ToastContextProvider({children}) {
-    const [state, dispatch] = useReducer(toastReducer, { toasts: [] })
+    const [state, setState] = useState({ toasts: [] })
 
-    const addToast = (type, message) => {
+    const add = (type, message) => {
         const id = Date.now() + Math.random()
-        dispatch({ type: "ADD", payload: { id, message, type } })
+        setState({
+            ...state,
+            toasts: [...state.toasts, { id, type, message }],
+        })
     }
     
-    const removeToast = (id) => {
-        dispatch({ type:"REMOVE", payload: id })
+    const remove = (id) => {
+        const updatedToasts = state.toasts.filter(
+            (toast) => toast.id !== id
+        );
+        setState({
+            ...state,
+            toasts: updatedToasts
+        })
     }
 
     return (
-        <ToastContext.Provider value={{addToast, removeToast}}>
+        <ToastContext.Provider value={{add, remove}}>
             <Toasts toasts={ state.toasts } />
             {children}
         </ToastContext.Provider>
