@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import Tags from "../Tags/index.jsx";
 import Severity from "../Severity/index.jsx";
 import { useToast } from "../../hooks/useToast.js";
+import BASE_URL from '../../settings.js'
 
 function Sidebar({selectTag, selectSeverities}) {
     const [severities, setSeverities] = useState([])
@@ -62,7 +63,7 @@ function Sidebar({selectTag, selectSeverities}) {
                     {tags && <Tags tags={tags} selectTag={getSelectedTag} />}
                 </div>
             </div>
-            <button onClick={() => toaster.add('success', 'test taost')}>Click</button>
+            <button onClick={() => toaster.success('test taost')}>Click</button>
         </aside>
     )
 }

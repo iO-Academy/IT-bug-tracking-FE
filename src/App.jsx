@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import Sidebar from "./components/Sidebar/index.jsx"
 import IssuesList from "./components/IssuesList/index.jsx"
-import BASE_URL from './settings.js'
 import { useToast } from './hooks/useToast.js'
+import BASE_URL from './settings.js'
 
 function App() {
     const [issues, setIssues] = useState([])

@@ -4,7 +4,7 @@ import { useToast } from "../../hooks/useToast.js"
 function Toast({id, type, message}) {
     const toaster = useToast()
 
-    const dismiss = () => {
+    const handleDismiss = () => {
         toaster.remove(id)
     }
 
@@ -21,7 +21,8 @@ function Toast({id, type, message}) {
         >
             <h4>{id + ' ' + type}</h4>
             <p>{message}</p>
-            <button onClick={dismiss}>
+            <button onClick={handleDismiss} type="button" className="btn-close align-middle"
+                                data-dismiss="modal" aria-label="Dismiss">
                 X
             </button>
         </div>
