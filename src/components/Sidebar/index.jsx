@@ -1,17 +1,12 @@
-import {useEffect, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import Tags from "../Tags/index.jsx";
 import Severity from "../Severity/index.jsx";
 import BASE_URL from '../../settings.js'
+import { SeveritiesContext } from "../../contexts/SeveritiesContext.jsx";
 
 function Sidebar({selectTag, selectSeverities}) {
-    const [severities, setSeverities] = useState([])
+    const severities = useContext(SeveritiesContext)
     const [tags, setTags] = useState([])
-
-    const getSeverities = async () => {
-        const response = await fetch('severities.json')
-        const data = await response.json()
-        setSeverities(data.severities)
-    }
 
     const getSelectedSeverities = () => {
         const severityCheckboxes = Array.from(document.querySelectorAll('.severity-checkbox'))
@@ -34,7 +29,6 @@ function Sidebar({selectTag, selectSeverities}) {
     }
 
     useEffect(() => {
-        getSeverities()
         getTags()
     }, []);
 

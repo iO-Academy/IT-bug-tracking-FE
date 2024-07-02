@@ -1,8 +1,9 @@
-import { useContext } from "react"
-import { ToastContext } from "../../contexts/ToastContext"
-import { useToast } from "../../hooks/useToast"
+import { useContext } from 'react'
+import { SeveritiesContext, severityColorMap } from '../../contexts/SeveritiesContext.jsx'
+import { useToast } from '../../hooks/useToast.js'
 
 function CreateIssuePopUp({ closeModal }) {
+    const severities = useContext(SeveritiesContext)
     const toaster = useToast()
 
     const createNewIssue = async (event) => {
@@ -59,30 +60,24 @@ function CreateIssuePopUp({ closeModal }) {
                 </div>
                 <div className="mb-3">
                     <div><strong>Severity:</strong></div>
-                    <label>
-                        <input type="radio" name="severity" value="0"/>
-                        <span className="badge text-bg-dark">Critical</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="severity" value="1"/>
-                        <span className="badge text-bg-danger">Severe</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="severity" value="2"/>
-                        <span className="badge text-bg-warning">Moderate</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="severity" value="3"/>
-                        <span className="badge text-bg-success">Low</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="severity" value="4"/>
-                        <span className="badge text-bg-info">Info</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="severity" value="9"/>
-                        <span className="badge text-bg-secondary">Unknown</span>
-                    </label>
+                    <div className="d-flex">
+                        { severities.map(severity => {
+                            return (
+                                <label className='pe-2' key={severity.id}>
+                                    <div className={`badge ${severityColorMap[severity.name]}`}>
+                                        <input
+                                            type="radio"
+                                            className='me-1'
+                                            name="severity" 
+                                            id={severity.name.toLowerCase()}
+                                            value={`${severity.id}`}
+                                        />
+                                        {severity.name}
+                                    </div>
+                                </label>
+                            )
+                        })}
+                    </div>
                 </div>
 
                 <div className="mb-3">

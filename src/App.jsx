@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import Sidebar from "./components/Sidebar/index.jsx"
 import IssuesList from "./components/IssuesList/index.jsx"
-import { useToast } from './hooks/useToast.js'
 import BASE_URL from './settings.js'
+import { SeveritiesContextProvider } from './contexts/SeveritiesContext.jsx'
 
 function App() {
     const [issues, setIssues] = useState([])
@@ -35,14 +35,16 @@ function App() {
     }
 
     return (
-      <>
-          <div className={"container"}>
-              <div className={"row"}>
-                  <Sidebar selectTag={selectTag} selectSeverities={selectSeverities} />
-                  <IssuesList issues={issues} sortOrder={sortOrder} setSortOrder={setSortOrder}/>
-              </div>
-          </div>
-      </>
+        <>
+            <div className={"container"}>
+                <div className={"row"}>
+                    <SeveritiesContextProvider>
+                        <Sidebar selectTag={selectTag} selectSeverities={selectSeverities} />
+                        <IssuesList issues={issues} sortOrder={sortOrder} setSortOrder={setSortOrder}/>
+                    </SeveritiesContextProvider>
+                </div>
+            </div>
+        </>
     )
 }
 
