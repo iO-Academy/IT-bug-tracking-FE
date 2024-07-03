@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react'
 import Collapse from '../Collapse/index.jsx'
 import IssueComment from '../IssueComment/index.jsx'
 import { severityColorMap } from '../../contexts/SeveritiesContext.jsx'
+import { useToasts } from '../../hooks/useToasts.js'
 
 function IssuePopUp({closeModal, id}) {
     const [issue, setIssue] = useState(null)
     const [issueId, setIssueId] = useState(null)
     const [commentToggle, setCommentToggle] = useState(false)
     const [newCommentToggle, setNewCommentToggle] = useState(false)
+    const toaster = useToasts()
 
     const getIssue = async (id) => {
         const response = await fetch('issue.json')
@@ -36,10 +38,10 @@ function IssuePopUp({closeModal, id}) {
         const responseData = await response.json()
 
         if ( response.ok ) {
-            // makeToast('success', responseData.message)
+            toaster.success(responseData.message)
             setNewCommentToggle(false)
         } else {
-            // makeToast('danger', responseData.message)
+            toaster.error(responseData.message)
         }
     }
 
@@ -49,10 +51,10 @@ function IssuePopUp({closeModal, id}) {
         const responseData = await response.json()
 
         if ( response.ok ) {
-            // makeToast('success', responseData.message)
+            toaster.success(responseData.message)
             closeModal()
         } else {
-            // makeToast('danger', responseData.message)
+            toaster.error(responseData.message)
         }
     }
 

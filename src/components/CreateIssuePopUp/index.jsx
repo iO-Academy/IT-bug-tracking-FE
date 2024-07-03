@@ -63,7 +63,7 @@ function CreateIssuePopUp({ closeModal }) {
     return (
         <div className="modal-content">
             <div className="modal-header">
-                <h1 className="modal-title fs-5" id="exampleModalLabel">Report new issue</h1>
+                <h1 className="modal-title fs-5">Report new issue</h1>
                 <button 
                     type="button" 
                     className="btn-close" 
