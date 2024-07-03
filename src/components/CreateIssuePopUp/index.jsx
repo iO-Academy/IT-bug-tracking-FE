@@ -8,16 +8,28 @@ function CreateIssuePopUp({ closeModal }) {
     const severities = useContext(SeveritiesContext)
     const tags = useTags()
     const toaster = useToasts()
+    const formRef = useRef()
     const newTagTextInput = useRef()
 
-    const createNewIssue = async (event) => {
-        event.preventDefault()
-        const formData = new FormData(document.querySelector('#new-issue-form'))
-        const sendData = Object.fromEntries(formData)
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.target)
+        createNewIssue(formData)
+    }
+
+    const createNewIssue = async (formData) => {
+        let data = {}
+        data.name = formData.get('name')
+        data.department = formData.get('department')
+        data.title = formData.get('title')
+        data.description = formData.get('description')
+        data.severity = formData.get('severity')
+        data.tags = formData.getAll('tags')
+        console.log(data)
 
         const response = await fetch('create-issue-success.json', {
             method: 'POST',
-            body: JSON.stringify(sendData)
+            body: JSON.stringify(data)
         })
         const responseData = await response.json()
         
@@ -60,7 +72,7 @@ function CreateIssuePopUp({ closeModal }) {
                     aria-label="Close"
                 />
             </div>
-            <form className="modal-body" id="new-issue-form">
+            <form className="modal-body" id="new-issue-form" ref={formRef} onSubmit={handleSubmit} action=''>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Your Name</label>
                     <input type="text" className="form-control" id="name" name="name"/>
@@ -114,7 +126,7 @@ function CreateIssuePopUp({ closeModal }) {
                             return (
                                 <div className="form-check form-check-inline border rounded">
                                     <label key={index} className="form-check-label p-1 mx-1">{tag.name}
-                                        <input type="checkbox" className="form-check-input" name="tags" value="" />
+                                        <input type="checkbox" className="form-check-input" name="tags" value={tag.id} />
                                     </label>
                                 </div>
                             )
@@ -122,14 +134,14 @@ function CreateIssuePopUp({ closeModal }) {
                     </div>
                     <div className="input-group mb-3">
                         <label htmlFor="newtag" className="input-group-text">Add New Tag:</label>
-                        <input type="text" className="form-control" id="newtag" name="name" ref={newTagTextInput} />
+                        <input type="text" className="form-control" id="newtag" name="new-tag-name" ref={newTagTextInput} />
                         <button type="button" role="button" className="btn btn-outline-secondary" onClick={handleAddNewTag}>+</button>
                     </div>
                 </div>
-            <div className="modal-footer">
-                <button role="button" type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
-                <button role="button" type="button" className="btn btn-primary" onClick={createNewIssue}>Create</button>
-            </div>
+                <div className="modal-footer">
+                    <button role="button" type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
+                    <button role="button" type="submit" className="btn btn-primary">Create</button>
+                </div>
             </form>
         </div>
     )
