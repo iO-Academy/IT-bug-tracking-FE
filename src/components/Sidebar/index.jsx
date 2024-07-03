@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
-import { SeveritiesContext, severityColorMap } from "../../contexts/SeveritiesContext.jsx";
-import { useTags } from "../../hooks/useTags.js";
+import { useContext, useState } from 'react';
+import { SeveritiesContext, severityColorMap } from '../../contexts/SeveritiesContext.jsx';
+import { useTags } from '../../hooks/useTags.js';
 
 function Sidebar({selectTag, selectSeverities}) {
     const severities = useContext(SeveritiesContext)
@@ -26,7 +26,7 @@ function Sidebar({selectTag, selectSeverities}) {
     }
 
     return (
-        <aside className={"col-3"}>
+        <aside className="col-3">
             <div className="border rounded bg-primary bg-gradient p-3 mb-3 text-light">
                 <h1>IT Support Tracking</h1>
             </div>
@@ -53,7 +53,7 @@ function Sidebar({selectTag, selectSeverities}) {
                 <div className="border rounded bg-white p-3 mb-3">
                     { tags.list.map(tag => {
                         return (
-                            <>
+                            <div className="d-inline" key={tag.id}>
                                 <input 
                                     type="radio" 
                                     className="btn-check" 
@@ -61,12 +61,13 @@ function Sidebar({selectTag, selectSeverities}) {
                                     id={`tag-${tag.name}`}
                                     value={tag.name}
                                     checked={selectedTag === tag.name}
+                                    onChange={() => {}}
                                     onClick={handleSelectedTag}
                                 />
-                                <label className="btn btn-outline-secondary border me-1 mb-1" htmlFor={`tag-${tag.name}`} key={tag.id}>
+                                <label className="btn btn-outline-secondary border me-1 mb-1" htmlFor={`tag-${tag.name}`}>
                                     {tag.name}
                                 </label>
-                            </>
+                            </div>
                         )
                     })}
                 </div>

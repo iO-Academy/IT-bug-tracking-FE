@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
-import IssueItem from "../IssueItem/index.jsx";
-import Modal from "../Modal/index.jsx";
-import IssuePopUp from "../IssuePopUp/index.jsx";
-import CreateIssuePopUp from "../CreateIssuePopUp/index.jsx";
+import {useEffect, useState} from 'react';
+import IssueItem from '../IssueItem/index.jsx';
+import Modal from '../Modal/index.jsx';
+import IssuePopUp from '../IssuePopUp/index.jsx';
+import CreateIssuePopUp from '../CreateIssuePopUp/index.jsx';
 
 function IssuesList({issues, sortOrder, setSortOrder}) {
     const [selectedIssue, setSelectedIssue] = useState(null)
@@ -39,11 +39,11 @@ function IssuesList({issues, sortOrder, setSortOrder}) {
     }
 
     const sortOrderNameMap = {
-        "": "Newest",
-        "newest": "Newest",
-        "oldest": "Oldest",
-        "severity": "Most Severe",
-        "comments": "Most Comments"
+        '': 'Newest',
+        'newest': 'Newest',
+        'oldest': 'Oldest',
+        'severity': 'Most Severe',
+        'comments': 'Most Comments'
     }
 
     return (

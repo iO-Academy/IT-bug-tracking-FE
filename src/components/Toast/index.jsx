@@ -1,5 +1,5 @@
-import { useEffect } from "react"
-import { useToasts } from "../../hooks/useToasts.js"
+import { useEffect } from 'react'
+import { useToasts } from '../../hooks/useToasts.js'
 
 function Toast({id, type, message}) {
     const toaster = useToasts()
@@ -16,7 +16,7 @@ function Toast({id, type, message}) {
 
     return (
         <div
-            className={`toast d-block align-items-center border-0`}
+            className="toast d-block align-items-center border-0"
             role="alert"
             aria-live="assertive" aria-atomic="true"
         >

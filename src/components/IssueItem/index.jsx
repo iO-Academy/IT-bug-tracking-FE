@@ -1,12 +1,6 @@
+import { severityColorMap } from "../../contexts/SeveritiesContext";
+
 function IssueItem({id, title, summary, severity, tags, date_created, comment_count, setSelectedIssue}) {
-    const severityColorMap = {
-        "Critical": "text-dark",
-        "Severe": "text-danger",
-        "Moderate": "text-warning",
-        "Low": "text-success",
-        "Info": "text-info",
-        "Unknown": "text-secondary",
-    }
 
     const handleClick = () => {
         setSelectedIssue(id)
@@ -14,18 +8,15 @@ function IssueItem({id, title, summary, severity, tags, date_created, comment_co
 
     return (
         <div className="rounded bg-white p-4 mb-3 d-flex justify-content-between" onClick={handleClick}>
-            <div className="me-2"><i className={"bi bi-circle-fill " + severityColorMap[severity]}></i></div>
+            <div className="me-2"><i className={`bi bi-circle-fill text-${severityColorMap[severity]}`}/></div>
             <div className="flex-fill">
                 <h4>{title}</h4>
                 <p>{summary}</p>
-                { tags.map(tag => {
+                { tags.map((tag, index) => {
                         return (
-                            <a 
-                                className="badge text-bg-light me-1 mb-1 text-decoration-none tag" 
-                                id={tag.name} key={tag.name} href="#"
-                            >
+                            <span className="badge text-bg-light me-1 mb-1 text-decoration-none tag" key={index}>
                                 {tag.name}
-                            </a>
+                            </span>
                         )
                     })}
             </div>

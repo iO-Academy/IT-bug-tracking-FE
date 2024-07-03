@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import Sidebar from "./components/Sidebar/index.jsx"
-import IssuesList from "./components/IssuesList/index.jsx"
+import Sidebar from './components/Sidebar/index.jsx'
+import IssuesList from './components/IssuesList/index.jsx'
 import { SeveritiesContextProvider } from './contexts/SeveritiesContext.jsx'
 import { TagsContextProvider } from './contexts/TagsContext.jsx'
 import BASE_URL from './settings.js'
@@ -48,8 +48,8 @@ function App() {
 
     return (
         <>
-            <div className={"container"}>
-                <div className={"row"}>
+            <div className="container">
+                <div className="row">
                     <SeveritiesContextProvider>
                         <TagsContextProvider>
                             <Sidebar selectTag={selectTag} selectSeverities={{addSeverity, removeSeverity}} />

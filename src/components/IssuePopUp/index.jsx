@@ -1,21 +1,13 @@
-import React, {useEffect, useState} from "react";
-import Collapse from "../Collapse/index.jsx";
-import IssueComment from "../IssueComment/index.jsx";
+import React, {useEffect, useState} from 'react'
+import Collapse from '../Collapse/index.jsx'
+import IssueComment from '../IssueComment/index.jsx'
+import { severityColorMap } from '../../contexts/SeveritiesContext.jsx'
 
 function IssuePopUp({closeModal, id}) {
     const [issue, setIssue] = useState(null)
     const [issueId, setIssueId] = useState(null)
     const [commentToggle, setCommentToggle] = useState(false)
     const [newCommentToggle, setNewCommentToggle] = useState(false)
-
-    const severityColorMap = {
-        "Critical": "dark",
-        "Severe": "danger",
-        "Moderate": "warning",
-        "Low": "success",
-        "Info": "info",
-        "Unknown": "secondary",
-    }
 
     const getIssue = async (id) => {
         const response = await fetch('issue.json')
@@ -44,10 +36,10 @@ function IssuePopUp({closeModal, id}) {
         const responseData = await response.json()
 
         if ( response.ok ) {
-            // makeToast("success", responseData.message)
+            // makeToast('success', responseData.message)
             setNewCommentToggle(false)
         } else {
-            // makeToast("danger", responseData.message)
+            // makeToast('danger', responseData.message)
         }
     }
 
@@ -57,10 +49,10 @@ function IssuePopUp({closeModal, id}) {
         const responseData = await response.json()
 
         if ( response.ok ) {
-            // makeToast("success", responseData.message)
+            // makeToast('success', responseData.message)
             closeModal()
         } else {
-            // makeToast("danger", responseData.message)
+            // makeToast('danger', responseData.message)
         }
     }
 
@@ -93,7 +85,7 @@ function IssuePopUp({closeModal, id}) {
                     <div className="accordion" id="accordionExample">
                         <div className="accordion-item">
                             <h2 className="accordion-header">
-                                <button className={"accordion-button" + (commentToggle ? "" : " collapsed")}
+                                <button className={'accordion-button' + (commentToggle ? '' : ' collapsed')}
                                         type="button" data-target="#collapseOne" data-toggle="collapse"
                                         onClick={toggleComments}>
                                     Conversation
@@ -112,32 +104,31 @@ function IssuePopUp({closeModal, id}) {
                                 }
                                 {
                                     newCommentToggle &&
-                                    <>
-                                        <form id="comment-form">
-                                            <div className="grid g-2 align-items-start">
-                                                <div className="row mb-2">
-                                                    <div className="col-2">
-                                                        <label className="col-form-label" htmlFor="comment-name">Name:</label>
-                                                    </div>
-                                                    <div className="col-5">
-                                                        <input type="text" className="form-control w-100" id="comment-name" name="name" />
-                                                    </div>
+                                    <form id="comment-form">
+                                        <div className="grid g-2 align-items-start">
+                                            <div className="row mb-2">
+                                                <div className="col-2">
+                                                    <label className="col-form-label" htmlFor="comment-name">Name:</label>
                                                 </div>
-                                                <div className="row mb-3">
-                                                    <div className="col-2">
-                                                        <label className="col-form-label" htmlFor="comment-input">Comment:</label>
-                                                    </div>
-                                                    <div className="col-10">
-                                                        <textarea className="form-control" id="comment-input" name="comment"></textarea>
-                                                    </div>
+                                                <div className="col-5">
+                                                    <input type="text" className="form-control w-100" id="comment-name" name="name" />
                                                 </div>
                                             </div>
-                                            <div className={"text-end"}>
-                                                <button className="btn btn-primary me-3" style={{minWidth: '96px'}} type="button" onClick={postNewComment}>Post</button>
-                                                <button className="btn btn-secondary" style={{minWidth: '96px'}} type="button" onClick={toggleNewComment}>Cancel</button>
+                                            <div className="row mb-3">
+                                                <div className="col-2">
+                                                    <label className="col-form-label" htmlFor="comment-input">Comment:</label>
+                                                </div>
+                                                <div className="col-10">
+                                                    <textarea className="form-control" id="comment-input" name="comment"></textarea>
+                                                </div>
                                             </div>
-                                        </form>
-                                    </>
+                                        </div>
+                                        <div className={"text-end"}>
+                                            <button className="btn btn-primary me-3" style={{minWidth: '96px'}} type="button" onClick={postNewComment}>Post</button>
+                                            <button className="btn btn-secondary" style={{minWidth: '96px'}} type="button" onClick={toggleNewComment}>Cancel</button>
+                                        </div>
+                                    </form>
+
                                 }
                                 {
                                     !newCommentToggle &&

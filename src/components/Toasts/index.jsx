@@ -1,4 +1,4 @@
-import Toast from "../Toast"
+import Toast from '../Toast'
 
 function Toasts({ toasts }) {
     return (

@@ -1,8 +1,8 @@
-import { useContext, useRef } from "react"
-import { SeveritiesContext, severityColorMap } from "../../contexts/SeveritiesContext.jsx"
-import { useToasts } from "../../hooks/useToasts.js"
-import { useTags } from "../../hooks/useTags.js"
-import BASE_URL from "../../settings.js"
+import { useContext, useRef } from 'react'
+import { SeveritiesContext, severityColorMap } from '../../contexts/SeveritiesContext.jsx'
+import { useToasts } from '../../hooks/useToasts.js'
+import { useTags } from '../../hooks/useTags.js'
+import BASE_URL from '../../settings.js'
 
 function CreateIssuePopUp({ closeModal }) {
     const severities = useContext(SeveritiesContext)
@@ -12,11 +12,11 @@ function CreateIssuePopUp({ closeModal }) {
 
     const createNewIssue = async (event) => {
         event.preventDefault()
-        const formData = new FormData(document.querySelector("#new-issue-form"))
+        const formData = new FormData(document.querySelector('#new-issue-form'))
         const sendData = Object.fromEntries(formData)
 
-        const response = await fetch("create-issue-success.json", {
-            method: "POST",
+        const response = await fetch('create-issue-success.json', {
+            method: 'POST',
             body: JSON.stringify(sendData)
         })
         const responseData = await response.json()
@@ -33,8 +33,8 @@ function CreateIssuePopUp({ closeModal }) {
         e.preventDefault()
         const sendData = { name: newTagTextInput.current.value }
 
-        const response = await fetch("create-tag.json", {
-            method: "POST",
+        const response = await fetch('create-tag.json', {
+            method: 'POST',
             body: JSON.stringify(sendData)
         })
         const responseData = await response.json()
