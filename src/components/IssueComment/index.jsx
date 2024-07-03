@@ -1,9 +1,15 @@
-function IssueComment({name, comment, dateCreated}) {
-
+function IssueComment({ comment}) {
     return (
-        <div className="mb-3 border-bottom">
-            <h6>{name} <small className="float-end">{dateCreated}</small></h6>
-            <p>{comment}</p>
+        <div className="row mb-3 border-bottom">
+            <h6>
+                {comment.name} 
+                <small className="float-end">{comment.date_created}</small>
+            </h6>
+            <div>
+                { comment.comment.split('\n\n').map((paragraph, index) => {
+                    return <p key={index} >{paragraph}</p>
+                })}
+            </div>
         </div>
     )
 }
