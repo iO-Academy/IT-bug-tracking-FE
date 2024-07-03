@@ -1,21 +1,22 @@
-import { useContext } from 'react'
-import { SeveritiesContext, severityColorMap } from '../../contexts/SeveritiesContext.jsx'
-import { useToasts } from '../../hooks/useToasts.js'
-import { useTags } from '../../hooks/useTags.js'
-import BASE_URL from '../../settings.js'
+import { useContext, useRef } from "react"
+import { SeveritiesContext, severityColorMap } from "../../contexts/SeveritiesContext.jsx"
+import { useToasts } from "../../hooks/useToasts.js"
+import { useTags } from "../../hooks/useTags.js"
+import BASE_URL from "../../settings.js"
 
 function CreateIssuePopUp({ closeModal }) {
     const severities = useContext(SeveritiesContext)
     const tags = useTags()
     const toaster = useToasts()
+    const newTagTextInput = useRef()
 
     const createNewIssue = async (event) => {
         event.preventDefault()
-        const formData = new FormData(document.querySelector('#new-issue-form'))
+        const formData = new FormData(document.querySelector("#new-issue-form"))
         const sendData = Object.fromEntries(formData)
 
-        const response = await fetch('create-issue-success.json', {
-            method: 'POST',
+        const response = await fetch("create-issue-success.json", {
+            method: "POST",
             body: JSON.stringify(sendData)
         })
         const responseData = await response.json()
@@ -28,9 +29,23 @@ function CreateIssuePopUp({ closeModal }) {
         }
     }
 
-    const handleAddNewTag = (e) => {
+    const handleAddNewTag = async (e) => {
         e.preventDefault()
-        console.log('hoi')
+        const sendData = { name: newTagTextInput.current.value }
+
+        const response = await fetch("create-tag.json", {
+            method: "POST",
+            body: JSON.stringify(sendData)
+        })
+        const responseData = await response.json()
+
+        if ( response.ok ) {
+            toaster.success(responseData.message)
+            newTagTextInput.current.value = ''
+            tags.refresh()
+        } else {
+            toaster.error(responseData.message)
+        }
     }
 
     return (
@@ -72,15 +87,15 @@ function CreateIssuePopUp({ closeModal }) {
                     <div className="form-text">Please be as descriptive as possible</div>
                 </div>
                 <div className="mb-3">
-                    <div className='mb-2'><strong>Severity:</strong></div>
+                    <div className="mb-2"><strong>Severity:</strong></div>
                     <div className="d-flex">
                         { severities.map(severity => {
                             return (
-                                <div className={`form-check form-check-inline rounded text-bg-${severityColorMap[severity.name]}`}>
-                                    <label className='form-check-label p-1 mx-1' key={severity.id}>
+                                <div className={`form-check form-check-inline rounded text-bg-${severityColorMap[severity.name]}`} key={severity.id}>
+                                    <label className="form-check-label p-1 mx-1">
                                         <input
                                             type="radio"
-                                            className='form-check-input'
+                                            className="form-check-input"
                                             name="severity" 
                                             id={severity.name.toLowerCase()}
                                             value={`${severity.id}`}
@@ -93,30 +108,29 @@ function CreateIssuePopUp({ closeModal }) {
                     </div>
                 </div>
                 <div className="mb-3">
-                    <div className='mb-2'><strong>Tags:</strong></div>
+                    <div className="mb-2"><strong>Tags:</strong></div>
                     <div className="mb-3">
                         { tags.list.map((tag, index) => {
                             return (
                                 <div className="form-check form-check-inline border rounded">
-                                    <label key={index} className='form-check-label p-1 mx-1'>{tag.name}
-                                        <input type="checkbox" className='form-check-input' name="tags" value='' />
+                                    <label key={index} className="form-check-label p-1 mx-1">{tag.name}
+                                        <input type="checkbox" className="form-check-input" name="tags" value="" />
                                     </label>
                                 </div>
                             )
                         })}
                     </div>
-                    <div className='input-group mb-3'>
-                        <label htmlFor="newtag" className='input-group-text'>Add New Tag:</label>
-                        <input type="text" className='form-control' id="newtag" name="name"/>
-                        <button type='button' className='btn btn-outline-secondary' onClick={handleAddNewTag}>+</button>
+                    <div className="input-group mb-3">
+                        <label htmlFor="newtag" className="input-group-text">Add New Tag:</label>
+                        <input type="text" className="form-control" id="newtag" name="name" ref={newTagTextInput} />
+                        <button type="button" role="button" className="btn btn-outline-secondary" onClick={handleAddNewTag}>+</button>
                     </div>
                 </div>
-            </form>
             <div className="modal-footer">
-                <button role="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close
-                </button>
-                <button role="button" className="btn btn-primary" onClick={createNewIssue}>Create</button>
+                <button role="button" type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
+                <button role="button" type="button" className="btn btn-primary" onClick={createNewIssue}>Create</button>
             </div>
+            </form>
         </div>
     )
 }
