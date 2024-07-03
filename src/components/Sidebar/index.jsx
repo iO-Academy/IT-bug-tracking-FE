@@ -1,10 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { SeveritiesContext, severityColorMap } from "../../contexts/SeveritiesContext.jsx";
 import { useTags } from "../../hooks/useTags.js";
 
 function Sidebar({selectTag, selectSeverities}) {
     const severities = useContext(SeveritiesContext)
     const tags = useTags()
+    const [selectedTag, setSelectedTag] = useState('')
 
     const handleCheckedSeverity = (e) => {
         if (e.target.checked) {
@@ -15,7 +16,13 @@ function Sidebar({selectTag, selectSeverities}) {
     }
 
     const handleSelectedTag = (e) => {
-        selectTag(e.target.id)
+        if (selectedTag === e.target.value) {
+            setSelectedTag('')
+            selectTag('')
+        } else {
+            setSelectedTag(e.target.value)
+            selectTag(e.target.value)
+        }
     }
 
     return (
@@ -46,13 +53,20 @@ function Sidebar({selectTag, selectSeverities}) {
                 <div className="border rounded bg-white p-3 mb-3">
                     { tags.list.map(tag => {
                         return (
-                            <span 
-                                className="d-inline-block text-bg-light border rounded fs-6 py-1 px-2 me-1 mb-1 tag" 
-                                id={tag.name} key={tag.name}
-                                onClick={handleSelectedTag}
-                            >
-                                {tag.name}
-                            </span>
+                            <>
+                                <input 
+                                    type="radio" 
+                                    className="btn-check" 
+                                    name="tag"
+                                    id={`tag-${tag.name}`}
+                                    value={tag.name}
+                                    checked={selectedTag === tag.name}
+                                    onClick={handleSelectedTag}
+                                />
+                                <label className="btn btn-outline-secondary border me-1 mb-1" htmlFor={`tag-${tag.name}`} key={tag.id}>
+                                    {tag.name}
+                                </label>
+                            </>
                         )
                     })}
                 </div>
