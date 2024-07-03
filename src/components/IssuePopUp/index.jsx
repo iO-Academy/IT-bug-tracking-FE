@@ -101,12 +101,7 @@ function IssuePopUp({ closeModal, id }) {
                     </div>
                     <Collapse header={'Conversation'} comments={issue.comments}>
                         {
-                            issue.comments.map((comment, index) =>
-                                <IssueComment
-                                    key={index}
-                                    comment={comment}
-                                />
-                            )
+                            issue.comments.map((comment, index) => <IssueComment key={index} comment={comment} />)
                         }
                         {
                             showNewCommentForm ? (
