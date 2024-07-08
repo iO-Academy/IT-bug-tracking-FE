@@ -2,7 +2,11 @@
   "id": 1,
   "title": "Title of the ticket",
   "severity": "Moderate",
-  "tags": ["tag 1", "tag 2", "tag 3"],
+  "tags": [
+    "tag 1",
+    "tag 2",
+    "tag 3"
+  ],
   "date_created": "01/05/2023",
   "comment_count": 3,
   "reporter": {
