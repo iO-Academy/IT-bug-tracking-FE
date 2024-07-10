@@ -25,7 +25,6 @@ function CreateIssuePopUp({ closeModal }) {
         data.description = formData.get('description')
         data.severity = formData.get('severity')
         data.tags = formData.getAll('tags')
-        console.log(data)
 
         const response = await fetch(`${BASE_URL}/report.php`, {
             method: 'POST',

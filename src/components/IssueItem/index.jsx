@@ -14,9 +14,7 @@ function IssueItem({id, title, summary, severity, tags, date_created, comment_co
                 <p>{summary}</p>
                 { tags.map((tag, index) => {
                         return (
-                            <span className="badge text-bg-light me-1 mb-1 text-decoration-none tag" key={index}>
-                                {tag.name}
-                            </span>
+                            <span className="badge text-bg-light me-1 mb-1 text-decoration-none tag" key={index}>{tag}</span>
                         )
                     })}
             </div>

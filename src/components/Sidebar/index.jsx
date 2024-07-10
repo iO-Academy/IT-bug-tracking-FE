@@ -2,10 +2,10 @@ import { useContext, useState } from 'react';
 import { SeveritiesContext, severityColorMap } from '../../contexts/SeveritiesContext.jsx';
 import { useTags } from '../../hooks/useTags.js';
 
-function Sidebar({selectTag, selectSeverities}) {
+function Sidebar({ selectCompleted, selectTag, selectSeverities }) {
     const severities = useContext(SeveritiesContext)
     const tags = useTags()
-    const [selectedTag, setSelectedTag] = useState('')
+    const [selectedTag, setSelectedTag] = useState(0)
 
     const handleCheckedSeverity = (e) => {
         if (e.target.checked) {
@@ -17,12 +17,16 @@ function Sidebar({selectTag, selectSeverities}) {
 
     const handleSelectedTag = (e) => {
         if (selectedTag === e.target.value) {
-            setSelectedTag('')
-            selectTag('')
+            setSelectedTag(0)
+            selectTag(0)
         } else {
             setSelectedTag(e.target.value)
             selectTag(e.target.value)
         }
+    }
+
+    const handleCheckedCompleted = (e) => {
+        selectCompleted(e.target.checked)
     }
 
     return (
@@ -32,6 +36,18 @@ function Sidebar({selectTag, selectSeverities}) {
             </div>
             <div className="border rounded bg-white p-3 mb-3">
                 <h6 className="mb-3">Filters:</h6>
+                <div className="border rounded bg-white p-3 mb-3">
+                    <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="completed"
+                        value="completed"
+                        onChange={handleCheckedCompleted}
+                    />
+                    <label className="form-check-label px-2" htmlFor="completed">
+                        Show Completed
+                    </label>
+                </div>
                 <div className="border rounded bg-white p-3 mb-3">
                     {severities && severities.map(severity => {
                         return (
@@ -59,8 +75,8 @@ function Sidebar({selectTag, selectSeverities}) {
                                     className="btn-check" 
                                     name="tag"
                                     id={`tag-${tag.name}`}
-                                    value={tag.name}
-                                    checked={selectedTag === tag.name}
+                                    value={tag.id}
+                                    checked={selectedTag == tag.id}
                                     onChange={() => {}}
                                     onClick={handleSelectedTag}
                                 />

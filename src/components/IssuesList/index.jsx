@@ -5,7 +5,7 @@ import IssuePopUp from '../IssuePopUp/index.jsx';
 import CreateIssuePopUp from '../CreateIssuePopUp/index.jsx';
 import BASE_URL from '../../settings.js'
 
-function IssuesList({selectedSeverities, selectedTag, sortOrder, setSortOrder}) {
+function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder, setSortOrder }) {
     const [issues, setIssues] = useState([])
     const [needsRefresh, setNeedsRefresh] = useState(Date.now())
     const [selectedIssue, setSelectedIssue] = useState(null)
@@ -15,6 +15,7 @@ function IssuesList({selectedSeverities, selectedTag, sortOrder, setSortOrder}) 
 
     const getIssues = async () => {
         let request = {}
+        showCompleted && (request.completed = showCompleted ? 1 : 0)
         selectedTag && (request.tag = selectedTag)
         selectedSeverities.length && (request.severity = selectedSeverities)
         sortOrder && (request.order = sortOrder)
@@ -27,7 +28,7 @@ function IssuesList({selectedSeverities, selectedTag, sortOrder, setSortOrder}) 
 
     useEffect(() => {
         getIssues()
-    }, [selectedTag, selectedSeverities, sortOrder, needsRefresh]);
+    }, [showCompleted, selectedTag, selectedSeverities, sortOrder, needsRefresh]);
 
     useEffect(() => {
         if (selectedIssue != null) {

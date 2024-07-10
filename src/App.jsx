@@ -6,7 +6,8 @@ import { TagsContextProvider } from './contexts/TagsContext.jsx'
 import BASE_URL from './settings.js'
 
 function App() {
-    const [selectedTag, setSelectedTag] = useState('')
+    const [showCompleted, setShowCompleted] = useState(false)
+    const [selectedTag, setSelectedTag] = useState(0)
     const [selectedSeverities, setSelectedSeverities] = useState([])
     const [sortOrder, setSortOrder] = useState('')
 
@@ -25,8 +26,13 @@ function App() {
         setSelectedSeverities(updatedSeverities)
     }
 
-    const selectTag = (selection) => {
-        setSelectedTag(selection)
+    const selectTag = (tag) => {
+        setSelectedTag(tag)
+    }
+
+    const selectCompleted = (completed) => {
+        console.log(completed)
+        setShowCompleted(completed)
     }
 
     return (
@@ -35,8 +41,8 @@ function App() {
                 <div className="row">
                     <SeveritiesContextProvider>
                         <TagsContextProvider>
-                            <Sidebar selectTag={selectTag} selectSeverities={{addSeverity, removeSeverity}} />
-                            <IssuesList selectedSeverities={selectedSeverities} selectedTag={selectedTag} sortOrder={sortOrder} setSortOrder={setSortOrder}/>
+                            <Sidebar selectCompleted={selectCompleted} selectTag={selectTag} selectSeverities={{addSeverity, removeSeverity}} />
+                            <IssuesList showCompleted={showCompleted} selectedSeverities={selectedSeverities} selectedTag={selectedTag} sortOrder={sortOrder} setSortOrder={setSortOrder}/>
                         </TagsContextProvider>
                     </SeveritiesContextProvider>
                 </div>

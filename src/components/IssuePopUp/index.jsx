@@ -29,7 +29,8 @@ function IssuePopUp({ closeModal, id }) {
         const commentFormData = new FormData(e.target)
         const sendData = Object.fromEntries(commentFormData)
 
-        const response = await fetch('post-comment-success.json', {
+        const params = new URLSearchParams({id: id})
+        const response = await fetch(`${BASE_URL}/comment.php?${params}`, {
             method: 'POST',
             body: JSON.stringify(sendData)
         })
@@ -47,7 +48,7 @@ function IssuePopUp({ closeModal, id }) {
     const markComplete = async (e) => {
         e.preventDefault()
         const params = new URLSearchParams({id: id})
-        const response = await fetch(`complete.json?${params}`)
+        const response = await fetch(`${BASE_URL}/complete.php?${params}`)
         const responseData = await response.json()
 
         if ( response.ok ) {

@@ -1,4 +1,4 @@
-function IssueComment({ comment}) {
+function IssueComment({ comment }) {
     return (
         <div className="row mb-3 border-bottom">
             <h6>
