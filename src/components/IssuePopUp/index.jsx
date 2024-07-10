@@ -13,7 +13,7 @@ function IssuePopUp({ closeModal, id }) {
 
     const getIssue = async (id) => {
         const params = new URLSearchParams({id: id})
-        const response = await fetch(`issue.json?${params}`)
+        const response = await fetch(`${BASE_URL}/issue.php?${params}`)
         const data = await response.json()
         setIssue(data)
     }

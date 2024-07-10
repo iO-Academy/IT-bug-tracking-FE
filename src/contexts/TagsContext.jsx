@@ -8,7 +8,7 @@ export function TagsContextProvider({children}) {
     const [needsRefresh, setNeedsRefresh] = useState(Date.now())
 
     const getTags = async () => {
-        const response = await fetch('tags.json')
+        const response = await fetch(`${BASE_URL}/tags.php`)
         const data = await response.json()
         setTags(data.tags)
     }

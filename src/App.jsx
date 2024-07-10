@@ -6,26 +6,9 @@ import { TagsContextProvider } from './contexts/TagsContext.jsx'
 import BASE_URL from './settings.js'
 
 function App() {
-    const [issues, setIssues] = useState([])
     const [selectedTag, setSelectedTag] = useState('')
     const [selectedSeverities, setSelectedSeverities] = useState([])
     const [sortOrder, setSortOrder] = useState('')
-
-    const getIssues = async () => {
-        let request = {}
-        selectedTag && (request.tag = selectedTag)
-        selectedSeverities.length && (request.severity = selectedSeverities)
-        sortOrder && (request.order = sortOrder)
-        const params = new URLSearchParams(request)
-
-        const response = await fetch(`issues.json?${params}`)
-        const data = await response.json()
-        setIssues(data.issues)
-    }
-
-    useEffect(() => {
-        getIssues()
-    }, [selectedTag, selectedSeverities, sortOrder]);
 
     const addSeverity = (selection) => {
         const updatedSeverities = [
@@ -53,7 +36,7 @@ function App() {
                     <SeveritiesContextProvider>
                         <TagsContextProvider>
                             <Sidebar selectTag={selectTag} selectSeverities={{addSeverity, removeSeverity}} />
-                            <IssuesList issues={issues} sortOrder={sortOrder} setSortOrder={setSortOrder}/>
+                            <IssuesList selectedSeverities={selectedSeverities} selectedTag={selectedTag} sortOrder={sortOrder} setSortOrder={setSortOrder}/>
                         </TagsContextProvider>
                     </SeveritiesContextProvider>
                 </div>

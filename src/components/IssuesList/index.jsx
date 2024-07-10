@@ -3,12 +3,31 @@ import IssueItem from '../IssueItem/index.jsx';
 import Modal from '../Modal/index.jsx';
 import IssuePopUp from '../IssuePopUp/index.jsx';
 import CreateIssuePopUp from '../CreateIssuePopUp/index.jsx';
+import BASE_URL from '../../settings.js'
 
-function IssuesList({issues, sortOrder, setSortOrder}) {
+function IssuesList({selectedSeverities, selectedTag, sortOrder, setSortOrder}) {
+    const [issues, setIssues] = useState([])
+    const [needsRefresh, setNeedsRefresh] = useState(Date.now())
     const [selectedIssue, setSelectedIssue] = useState(null)
     const [showIssueModal, setShowIssueModal] = useState(false)
     const [showCreateModal, setShowCreateModal] = useState(false)
     const [showOrderDropdown, setShowOrderDropdown] = useState(false)
+
+    const getIssues = async () => {
+        let request = {}
+        selectedTag && (request.tag = selectedTag)
+        selectedSeverities.length && (request.severity = selectedSeverities)
+        sortOrder && (request.order = sortOrder)
+        const params = new URLSearchParams(request)
+
+        const response = await fetch(`${BASE_URL}/issues.php?${params}`)
+        const data = await response.json()
+        setIssues(data.issues)
+    }
+
+    useEffect(() => {
+        getIssues()
+    }, [selectedTag, selectedSeverities, sortOrder, needsRefresh]);
 
     useEffect(() => {
         if (selectedIssue != null) {
@@ -28,6 +47,11 @@ function IssuesList({issues, sortOrder, setSortOrder}) {
 
     const closeCreateModal = () => {
         setShowCreateModal(false)
+    }
+
+    const closeCreateModalSuccess = () => {
+        setShowCreateModal(false)
+        setNeedsRefresh(Date.now())
     }
 
     const toggleOrderDropdown = () => setShowOrderDropdown(!showOrderDropdown)
@@ -69,7 +93,7 @@ function IssuesList({issues, sortOrder, setSortOrder}) {
                     {
                         showCreateModal &&
                         <Modal closeModal={closeCreateModal}>
-                            <CreateIssuePopUp closeModal={closeCreateModal}/>
+                            <CreateIssuePopUp closeModal={closeCreateModalSuccess}/>
                         </Modal>
                     }
                 </div>

@@ -16,7 +16,7 @@ export function SeveritiesContextProvider({children}) {
     const [severities, setSeverities] = useState([])
 
     const getSeverities = async () => {
-        const response = await fetch('severities.json')
+        const response = await fetch(`${BASE_URL}/severities.php`)
         const data = await response.json()
         setSeverities(data.severities)
     }

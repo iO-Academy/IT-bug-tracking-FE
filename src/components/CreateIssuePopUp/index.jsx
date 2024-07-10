@@ -27,7 +27,7 @@ function CreateIssuePopUp({ closeModal }) {
         data.tags = formData.getAll('tags')
         console.log(data)
 
-        const response = await fetch('create-issue-success.json', {
+        const response = await fetch(`${BASE_URL}/report.php`, {
             method: 'POST',
             body: JSON.stringify(data)
         })
@@ -89,13 +89,13 @@ function CreateIssuePopUp({ closeModal }) {
                     </select>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="summary" className="form-label">Summarise your issue</label>
-                    <input type="text" className="form-control" id="summary" name="summary"/>
+                    <label htmlFor="title" className="form-label">Summarise your issue</label>
+                    <input type="text" className="form-control" id="title" name="title"/>
                     <div className="form-text">Maximum 100 characters</div>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="issue" className="form-label">Describe your issue</label>
-                    <textarea className="form-control" id="issue" rows="15" name="issue"></textarea>
+                    <label htmlFor="description" className="form-label">Describe your issue</label>
+                    <textarea className="form-control" id="description" rows="15" name="description"></textarea>
                     <div className="form-text">Please be as descriptive as possible</div>
                 </div>
                 <div className="mb-3">
