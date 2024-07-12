@@ -44,14 +44,14 @@ function CreateIssuePopUp({ closeModal }) {
         e.preventDefault()
         const sendData = { name: newTagTextInput.current.value }
 
-        const response = await fetch('create-tag.json', {
+        const response = await fetch(`${BASE_URL}/tag.php`, {
             method: 'POST',
             body: JSON.stringify(sendData)
         })
         const responseData = await response.json()
 
         if ( response.ok ) {
-            toaster.success(responseData.message)
+            toaster.success(`New tag "${responseData.name}" created`)
             newTagTextInput.current.value = ''
             tags.refresh()
         } else {
