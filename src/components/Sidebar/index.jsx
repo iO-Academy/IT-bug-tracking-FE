@@ -49,7 +49,8 @@ function Sidebar({ selectCompleted, selectTag, selectSeverities }) {
                     </label>
                 </div>
                 <div className="border rounded bg-white p-3 mb-3">
-                    {severities && severities.map(severity => {
+                    { (Array.isArray(severities) && severities.length > 0) && 
+                    severities.map(severity => {
                         return (
                             <div className={`form-check`} key={severity.id}>
                                 <input 
@@ -67,7 +68,8 @@ function Sidebar({ selectCompleted, selectTag, selectSeverities }) {
                     })}
                 </div>
                 <div className="border rounded bg-white p-3 mb-3">
-                    { tags.list.map(tag => {
+                    { (Array.isArray(tags.list) && tags.list.length > 0) && 
+                    tags.list.map(tag => {
                         return (
                             <div className="d-inline" key={tag.id}>
                                 <input 

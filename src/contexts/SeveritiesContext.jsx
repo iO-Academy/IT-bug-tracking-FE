@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react'
 import BASE_URL from '../settings.js'
+import { useToasts } from '../hooks/useToasts.js'
 
 export const SeveritiesContext = createContext([])
 
@@ -14,11 +15,25 @@ export const severityColorMap = {
 
 export function SeveritiesContextProvider({children}) {
     const [severities, setSeverities] = useState([])
+    const toaster = useToasts()
 
     const getSeverities = async () => {
-        const response = await fetch(`${BASE_URL}/severities.php`)
-        const data = await response.json()
-        setSeverities(data.severities)
+        try {
+            const response = await fetch(`${BASE_URL}/severities.php`)
+            const data = await response.json()
+            
+            if (response.ok) {
+                setSeverities(data.severities)
+            } else {
+                console.log('Unable to fetch severities. ' + data.message)
+                toaster.error('Unable to fetch severities. ' + data.message)
+                setSeverities([])
+            }
+        } catch (error) {
+            console.log(error)
+            toaster.error('Unable to fetch severities. Check console for details.')
+            setSeverities([])
+        }
     }
 
     useEffect(() => {

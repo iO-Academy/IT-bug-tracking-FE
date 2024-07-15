@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Sidebar from './components/Sidebar/index.jsx'
 import IssuesList from './components/IssuesList/index.jsx'
 import { SeveritiesContextProvider } from './contexts/SeveritiesContext.jsx'
 import { TagsContextProvider } from './contexts/TagsContext.jsx'
-import BASE_URL from './settings.js'
 
 function App() {
     const [showCompleted, setShowCompleted] = useState(false)
@@ -31,7 +30,6 @@ function App() {
     }
 
     const selectCompleted = (completed) => {
-        console.log(completed)
         setShowCompleted(completed)
     }
 

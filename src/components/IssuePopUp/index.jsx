@@ -48,34 +48,45 @@ function IssuePopUp({ closeModal, id }) {
         e.preventDefault()
         const commentFormData = new FormData(e.target)
         const sendData = Object.fromEntries(commentFormData)
-
         const params = new URLSearchParams({id: id})
-        const response = await fetch(`${BASE_URL}/comment.php?${params}`, {
-            method: 'POST',
-            body: JSON.stringify(sendData)
-        })
-        const responseData = await response.json()
 
-        if ( response.ok ) {
-            toaster.success(responseData.message)
-            setShowNewCommentForm(false)
-            setNeedsRefresh(Date.now())
-        } else {
-            toaster.error(responseData.message)
+        try {
+            const response = await fetch(`${BASE_URL}/comment.php?${params}`, {
+                method: 'POST',
+                body: JSON.stringify(sendData)
+            })
+            const responseData = await response.json()
+    
+            if ( response.ok ) {
+                toaster.success(responseData.message)
+                setShowNewCommentForm(false)
+                setNeedsRefresh(Date.now())
+            } else {
+                toaster.error(responseData.message)
+            }
+        } catch (error) {
+            console.log(error)
+            toaster.error(`Error in response when posting comment to issue ${id}. Check console for details.`)
         }
     }
 
     const markComplete = async (e) => {
         e.preventDefault()
         const params = new URLSearchParams({id: id})
-        const response = await fetch(`${BASE_URL}/complete.php?${params}`)
-        const responseData = await response.json()
 
-        if ( response.ok ) {
-            toaster.success(responseData.message)
-            closeModal()
-        } else {
-            toaster.error(responseData.message)
+        try {
+            const response = await fetch(`${BASE_URL}/complete.php?${params}`)
+            const responseData = await response.json()
+    
+            if ( response.ok ) {
+                toaster.success(responseData.message)
+                closeModal()
+            } else {
+                toaster.error(responseData.message)
+            }
+        } catch (error) {
+            console.log(error)
+            toaster.error(`Error in response when marking issue ${id} as complete. Check console for details.`)
         }
     }
 

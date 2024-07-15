@@ -26,17 +26,22 @@ function CreateIssuePopUp({ closeModal }) {
         data.severity = formData.get('severity')
         data.tags = formData.getAll('tags')
 
-        const response = await fetch(`${BASE_URL}/report.php`, {
-            method: 'POST',
-            body: JSON.stringify(data)
-        })
-        const responseData = await response.json()
-        
-        if ( response.ok ) {
-            toaster.success(responseData.message)
-            closeModal()
-        } else {
-            toaster.error(responseData.message)
+        try {
+            const response = await fetch(`${BASE_URL}/report.php`, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
+            const responseData = await response.json()
+            
+            if ( response.ok ) {
+                toaster.success(responseData.message)
+                closeModal()
+            } else {
+                toaster.error(responseData.message)
+            }
+        } catch (error) {
+            console.log(error)
+            toaster.error('Error in response when creating issue. Check console for details.')
         }
     }
 
@@ -44,18 +49,23 @@ function CreateIssuePopUp({ closeModal }) {
         e.preventDefault()
         const sendData = { name: newTagTextInput.current.value }
 
-        const response = await fetch(`${BASE_URL}/tag.php`, {
-            method: 'POST',
-            body: JSON.stringify(sendData)
-        })
-        const responseData = await response.json()
-
-        if ( response.ok ) {
-            toaster.success(`New tag "${responseData.name}" created`)
-            newTagTextInput.current.value = ''
-            tags.refresh()
-        } else {
-            toaster.error(responseData.message)
+        try {
+            const response = await fetch(`${BASE_URL}/tag.php`, {
+                method: 'POST',
+                body: JSON.stringify(sendData)
+            })
+            const responseData = await response.json()
+    
+            if ( response.ok ) {
+                toaster.success(`New tag "${responseData.name}" created`)
+                newTagTextInput.current.value = ''
+                tags.refresh()
+            } else {
+                toaster.error('Error creating tag. ' + responseData.message)
+            }
+        } catch (error) {
+            console.log(error)
+            toaster.error('Error in response when creating tag. Check console for details.')
         }
     }
 
@@ -74,7 +84,7 @@ function CreateIssuePopUp({ closeModal }) {
             <form className="modal-body" id="new-issue-form" ref={formRef} onSubmit={handleSubmit} action=''>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Your Name</label>
-                    <input type="text" className="form-control" id="name" name="name"/>
+                    <input type="text" className="form-control" id="name" name="name" maxLength={255} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="department" className="form-label">Department</label>
@@ -89,12 +99,12 @@ function CreateIssuePopUp({ closeModal }) {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Summarise your issue</label>
-                    <input type="text" className="form-control" id="title" name="title"/>
+                    <input type="text" className="form-control" id="title" name="title" maxLength={100} />
                     <div className="form-text">Maximum 100 characters</div>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">Describe your issue</label>
-                    <textarea className="form-control" id="description" rows="15" name="description"></textarea>
+                    <textarea className="form-control" id="description" rows="15" name="description" maxLength={65535} ></textarea>
                     <div className="form-text">Please be as descriptive as possible</div>
                 </div>
                 <div className="mb-3">
@@ -133,7 +143,7 @@ function CreateIssuePopUp({ closeModal }) {
                     </div>
                     <div className="input-group mb-3">
                         <label htmlFor="newtag" className="input-group-text">Add New Tag:</label>
-                        <input type="text" className="form-control" id="newtag" name="new-tag-name" ref={newTagTextInput} />
+                        <input type="text" className="form-control" id="newtag" name="new-tag-name" maxLength={255} ref={newTagTextInput} />
                         <button type="button" role="button" className="btn btn-outline-secondary" onClick={handleAddNewTag}>+</button>
                     </div>
                 </div>
