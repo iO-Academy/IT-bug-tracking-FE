@@ -4,6 +4,7 @@ import Modal from '../Modal/index.jsx';
 import IssuePopUp from '../IssuePopUp/index.jsx';
 import CreateIssuePopUp from '../CreateIssuePopUp/index.jsx';
 import BASE_URL from '../../settings.js'
+import { useToasts } from '../../hooks/useToasts.js';
 
 function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder, setSortOrder }) {
     const [issues, setIssues] = useState([])
@@ -12,6 +13,7 @@ function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder,
     const [showIssueModal, setShowIssueModal] = useState(false)
     const [showCreateModal, setShowCreateModal] = useState(false)
     const [showOrderDropdown, setShowOrderDropdown] = useState(false)
+    const toaster = useToasts()
 
     const getIssues = async () => {
         let request = {}
@@ -21,9 +23,22 @@ function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder,
         sortOrder && (request.order = sortOrder)
         const params = new URLSearchParams(request)
 
-        const response = await fetch(`${BASE_URL}/issues.php?${params}`)
-        const data = await response.json()
-        setIssues(data.issues)
+        try {
+            const response = await fetch(`${BASE_URL}/issues.php?${params}`)
+            const data = await response.json()
+
+            if (response.ok) {
+                setIssues(data.issues)
+            } else {
+                console.log('Unable to fetch issues. Message:\n' + data.message)
+                toaster.error('Unable to fetch issues.\n' + data.message)
+                setIssues([])
+            }
+        } catch (error) {
+            console.log(error)
+            toaster.error('Unable to fetch issues. Check console for details.')
+            setIssues([])
+        }
     }
 
     useEffect(() => {
@@ -99,6 +114,7 @@ function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder,
                     }
                 </div>
                 {
+                    (Array.isArray(issues) && issues.length > 0) ?
                     issues.map((issue, index) => {
                         return (<IssueItem
                             key={index}
@@ -111,7 +127,8 @@ function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder,
                             comment_count={issue.comment_count}
                             setSelectedIssue={setSelectedIssue}
                         />)
-                    })
+                    }) 
+                    : <h2 className='text-secondary text-center my-3'>No issues to display.</h2>
                 }
             </main>
             {
