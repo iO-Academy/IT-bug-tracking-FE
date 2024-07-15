@@ -125,6 +125,7 @@ function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder,
                             tags={issue.tags}
                             date_created={issue.date_created}
                             comment_count={issue.comment_count}
+                            completed={issue.completed}
                             setSelectedIssue={setSelectedIssue}
                         />)
                     }) 
