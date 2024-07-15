@@ -19,7 +19,7 @@ function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder,
         let request = {}
         showCompleted && (request.completed = showCompleted ? 1 : 0)
         selectedTag && (request.tag = selectedTag)
-        selectedSeverities.length && (request.severity = selectedSeverities)
+        selectedSeverities.length > 0 && (request.severity = selectedSeverities)
         sortOrder && (request.order = sortOrder)
         const params = new URLSearchParams(request)
 
@@ -118,14 +118,7 @@ function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder,
                     issues.map((issue, index) => {
                         return (<IssueItem
                             key={index}
-                            id={issue.id}
-                            title={issue.title}
-                            summary={issue.summary}
-                            severity={issue.severity}
-                            tags={issue.tags}
-                            date_created={issue.date_created}
-                            comment_count={issue.comment_count}
-                            completed={issue.completed}
+                            issue={issue}
                             setSelectedIssue={setSelectedIssue}
                         />)
                     }) 
