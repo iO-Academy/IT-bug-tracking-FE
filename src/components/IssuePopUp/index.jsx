@@ -7,19 +7,39 @@ import BASE_URL from '../../settings.js'
 
 function IssuePopUp({ closeModal, id }) {
     const [issue, setIssue] = useState(null)
+    const [error, setError] = useState(false)
     const [showNewCommentForm, setShowNewCommentForm] = useState(false)
     const [needsRefresh, setNeedsRefresh] = useState(Date.now())
     const toaster = useToasts()
 
     const getIssue = async (id) => {
         const params = new URLSearchParams({id: id})
-        const response = await fetch(`${BASE_URL}/issue.php?${params}`)
-        const data = await response.json()
-        setIssue(data)
+
+        try {
+            const response = await fetch(`${BASE_URL}/issue.php?${params}`)
+            const data = await response.json()
+
+            if (response.ok) {
+                setIssue(data)
+                setError(false)
+            } else {
+                console.log('Unable to fetch issue data.\n' + data.message)
+                toaster.error('Unable to fetch issue data. \n' + data.message)
+                setIssue(null)
+                setError(true)
+            }
+        } catch (error) {
+            console.log(error)
+            toaster.error('Unable to fetch issue data. Check console for details.')
+            setIssue(null)
+            setError(true)
+        }
     }
 
     useEffect(() => {
-        getIssue(id)
+        if (id) {
+            getIssue(id)
+        }
     }, [id, needsRefresh]);
 
     const toggleNewCommentForm = () => setShowNewCommentForm(!showNewCommentForm)
@@ -59,7 +79,7 @@ function IssuePopUp({ closeModal, id }) {
         }
     }
 
-    if (issue != null) {
+    if (issue) {
         return (
             <>
                 <div className="modal-header">
@@ -146,7 +166,7 @@ function IssuePopUp({ closeModal, id }) {
         return (
             <>
                 <div className="modal-header">
-                    <h1 className="modal-title fs-5">Loading...</h1>
+                    <h1 className="modal-title fs-5">{!error ?  'Loading Issue data...' : 'Unable to load Issue data.'}</h1>
                     <div className="text-end">
                         <button 
                             type="button" 
@@ -158,7 +178,7 @@ function IssuePopUp({ closeModal, id }) {
                     </div>
                 </div>
                 <div className="modal-body">
-                    <p>Please wait...</p>
+                    <p className='text-secondary'>{!error ? 'Please wait...' : 'Please try again.'}</p>
                 </div>
                 <div className="modal-footer"></div>
             </>
