@@ -29,6 +29,9 @@ function CreateIssuePopUp({ closeModal }) {
         try {
             const response = await fetch(`${BASE_URL}/report.php`, {
                 method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
                 body: JSON.stringify(data)
             })
             const responseData = await response.json()
@@ -52,6 +55,9 @@ function CreateIssuePopUp({ closeModal }) {
         try {
             const response = await fetch(`${BASE_URL}/tag.php`, {
                 method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
                 body: JSON.stringify(sendData)
             })
             const responseData = await response.json()
@@ -133,8 +139,8 @@ function CreateIssuePopUp({ closeModal }) {
                     <div className="mb-3">
                         { tags.list.map((tag, index) => {
                             return (
-                                <div className="form-check form-check-inline border rounded">
-                                    <label key={index} className="form-check-label p-1 mx-1">{tag.name}
+                                <div className="form-check form-check-inline border rounded" key={index}>
+                                    <label className="form-check-label p-1 mx-1">{tag.name}
                                         <input type="checkbox" className="form-check-input" name="tags" value={tag.id} />
                                     </label>
                                 </div>
