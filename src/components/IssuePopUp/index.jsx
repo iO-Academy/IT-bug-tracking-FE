@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import Collapse from '../Collapse/index.jsx'
 import IssueComment from '../IssueComment/index.jsx'
 import { severityColorMap } from '../../contexts/SeveritiesContext.jsx'
@@ -53,6 +53,9 @@ function IssuePopUp({ closeModal, id }) {
         try {
             const response = await fetch(`${BASE_URL}/comment.php?${params}`, {
                 method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
                 body: JSON.stringify(sendData)
             })
             const responseData = await response.json()
