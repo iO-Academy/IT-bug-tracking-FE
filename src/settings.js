@@ -1,3 +1,3 @@
-const BASE_URL = 'http://localhost:1234/pages/FST/project-05/it-bug-tracking-api/'
+const BASE_URL = 'http://localhost:8080'
 
 export default BASE_URL

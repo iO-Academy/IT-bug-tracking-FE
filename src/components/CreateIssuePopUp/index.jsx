@@ -27,7 +27,7 @@ function CreateIssuePopUp({ closeModal }) {
         data.tags = formData.getAll('tags')
 
         try {
-            const response = await fetch(`${BASE_URL}/report.php`, {
+            const response = await fetch(`${BASE_URL}/report`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -53,7 +53,7 @@ function CreateIssuePopUp({ closeModal }) {
         const sendData = { name: newTagTextInput.current.value }
 
         try {
-            const response = await fetch(`${BASE_URL}/tag.php`, {
+            const response = await fetch(`${BASE_URL}/tag`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

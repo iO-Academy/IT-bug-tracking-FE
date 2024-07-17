@@ -16,7 +16,7 @@ function IssuePopUp({ closeModal, id }) {
         const params = new URLSearchParams({id: id})
 
         try {
-            const response = await fetch(`${BASE_URL}/issue.php?${params}`)
+            const response = await fetch(`${BASE_URL}/issue?${params}`)
             const data = await response.json()
 
             if (response.ok) {
@@ -51,7 +51,7 @@ function IssuePopUp({ closeModal, id }) {
         const params = new URLSearchParams({id: id})
 
         try {
-            const response = await fetch(`${BASE_URL}/comment.php?${params}`, {
+            const response = await fetch(`${BASE_URL}/comment?${params}`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -78,7 +78,7 @@ function IssuePopUp({ closeModal, id }) {
         const params = new URLSearchParams({id: id})
 
         try {
-            const response = await fetch(`${BASE_URL}/complete.php?${params}`)
+            const response = await fetch(`${BASE_URL}/complete?${params}`)
             const responseData = await response.json()
     
             if ( response.ok ) {

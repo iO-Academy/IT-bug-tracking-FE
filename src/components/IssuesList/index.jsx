@@ -24,7 +24,7 @@ function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder,
         const params = new URLSearchParams(request)
 
         try {
-            const response = await fetch(`${BASE_URL}/issues.php?${params}`)
+            const response = await fetch(`${BASE_URL}/issues?${params}`)
             const data = await response.json()
 
             if (response.ok) {
