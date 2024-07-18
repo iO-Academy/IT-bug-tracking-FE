@@ -5,6 +5,15 @@ import { severityColorMap } from '../../contexts/SeveritiesContext.jsx'
 import { useToasts } from '../../hooks/useToasts.js'
 import BASE_URL from '../../settings.js'
 
+const departmentIdMap = {
+    0: 'Unknown',
+    1: 'Marketing',
+    2: 'Sales',
+    3: 'Operations',
+    4: 'Engineering',
+    5: 'Admin'
+}
+
 function IssuePopUp({ closeModal, id }) {
     const [issue, setIssue] = useState(null)
     const [error, setError] = useState(false)
@@ -112,11 +121,15 @@ function IssuePopUp({ closeModal, id }) {
                 <div className="modal-body">
                     <div className="row">
                         <h5 className="col-3">Reporter:</h5> 
-                        <p className="col-9">{issue.reporter.name}</p>
+                        <p className="col-9">{issue.reporter}</p>
                     </div>
                     <div className="row">
                         <h5 className="col-3">Department:</h5> 
-                        <p className="col-9">{issue.reporter.department}</p>
+                        <p className="col-9">{departmentIdMap[issue.department]}</p>
+                    </div>
+                    <div className="row">
+                        <h5 className="col-3">Created:</h5> 
+                        <p className="col-9">{issue.date_created}</p>
                     </div>
                     <div className="row">
                         <h5 className="mb-3">Description:</h5>
