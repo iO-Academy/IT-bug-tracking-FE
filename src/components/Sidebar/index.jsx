@@ -1,16 +1,4 @@
-import { useContext } from 'react';
-import { SeveritiesContext, severityColorMap } from '../../contexts/SeveritiesContext.jsx';
-
-function Sidebar({ selectCompleted, selectSeverities }) {
-    const severities = useContext(SeveritiesContext)
-
-    const handleCheckedSeverity = (e) => {
-        if (e.target.checked) {
-            selectSeverities.addSeverity(e.target.value)
-        } else {
-            selectSeverities.removeSeverity(e.target.value)
-        }
-    }
+function Sidebar({ selectCompleted }) {
 
     const handleCheckedCompleted = (e) => {
         selectCompleted(e.target.checked)
