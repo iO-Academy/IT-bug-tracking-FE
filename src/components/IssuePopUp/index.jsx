@@ -79,26 +79,6 @@ function IssuePopUp({ closeModal, id }) {
         }
     }
 
-    const markComplete = async (e) => {
-        e.preventDefault()
-        const params = new URLSearchParams({id: id})
-
-        try {
-            const response = await fetch(`${BASE_URL}/complete.php?${params}`)
-            const responseData = await response.json()
-    
-            if ( response.ok ) {
-                toaster.success(responseData.message)
-                closeModal()
-            } else {
-                toaster.error(responseData.message)
-            }
-        } catch (error) {
-            console.log(error)
-            toaster.error(`Error in response when marking issue ${id} as complete. Check console for details.`)
-        }
-    }
-
     if (issue) {
         return (
             <>
@@ -172,9 +152,6 @@ function IssuePopUp({ closeModal, id }) {
                             )
                         }
                     </Collapse>
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-success" onClick={markComplete} >Mark as complete</button>
                 </div>
             </>
         )
