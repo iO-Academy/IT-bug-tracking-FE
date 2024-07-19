@@ -91,9 +91,6 @@ function IssuePopUp({ closeModal, id }) {
         try {
             const response = await fetch(`${BASE_URL}/comment.php?${params}`, {
                 method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
                 body: JSON.stringify(sendData)
             })
             const responseData = await response.json()

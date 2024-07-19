@@ -3,7 +3,6 @@ import { SeveritiesContext, severityColorMap } from '../../contexts/SeveritiesCo
 import { useToasts } from '../../hooks/useToasts.js'
 import { useTags } from '../../hooks/useTags.js'
 import BASE_URL from '../../settings.js'
-import CreateTag from '../CreateTag/index.jsx'
 
 function CreateIssuePopUp({ closeModal }) {
     const severities = useContext(SeveritiesContext)
@@ -29,9 +28,6 @@ function CreateIssuePopUp({ closeModal }) {
         try {
             const response = await fetch(`${BASE_URL}/report.php`, {
                 method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
                 body: JSON.stringify(data)
             })
             const responseData = await response.json()

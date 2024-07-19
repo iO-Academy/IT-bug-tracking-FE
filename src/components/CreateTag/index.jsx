@@ -15,9 +15,6 @@ function CreateTag() {
         try {
             const response = await fetch(`${BASE_URL}/addtag.php`, {
                 method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
                 body: JSON.stringify(sendData)
             })
             const responseData = await response.json()
