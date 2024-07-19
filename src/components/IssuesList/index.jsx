@@ -74,7 +74,7 @@ function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder,
 
     const changeSortOrder = (event) => {
         event.preventDefault()
-        setSortOrder(event.target.id)
+        setSortOrder(event.target.id ?? '')
         setShowOrderDropdown(false)
     }
 
@@ -96,7 +96,7 @@ function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder,
                             { sortOrderNameMap[sortOrder] }
                         </button>
                         <ul className={"dropdown-menu" + (showOrderDropdown ? " show" : "")}>
-                            <li><a className="dropdown-item" id="newest" onClick={changeSortOrder} href="#">{ sortOrderNameMap["newest"] }</a></li>
+                            <li><a className="dropdown-item" onClick={changeSortOrder} href="#">{ sortOrderNameMap["newest"] }</a></li>
                             <li><a className="dropdown-item" id="oldest" onClick={changeSortOrder} href="#">{ sortOrderNameMap["oldest"] }</a></li>
                             <li><a className="dropdown-item" id="severity" onClick={changeSortOrder} href="#">{ sortOrderNameMap["severity"] }</a></li>
                             <li><a className="dropdown-item" id="comments" onClick={changeSortOrder} href="#">{ sortOrderNameMap["comments"] }</a></li>
