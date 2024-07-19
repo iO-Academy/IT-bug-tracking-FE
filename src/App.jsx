@@ -2,11 +2,9 @@ import { useState } from 'react'
 import Sidebar from './components/Sidebar/index.jsx'
 import IssuesList from './components/IssuesList/index.jsx'
 import { SeveritiesContextProvider } from './contexts/SeveritiesContext.jsx'
-import { TagsContextProvider } from './contexts/TagsContext.jsx'
 
 function App() {
     const [showCompleted, setShowCompleted] = useState(false)
-    const [selectedTag, setSelectedTag] = useState(0)
     const [selectedSeverities, setSelectedSeverities] = useState([])
     const [sortOrder, setSortOrder] = useState('')
 
@@ -25,10 +23,6 @@ function App() {
         setSelectedSeverities(updatedSeverities)
     }
 
-    const selectTag = (tag) => {
-        setSelectedTag(tag)
-    }
-
     const selectCompleted = (completed) => {
         setShowCompleted(completed)
     }
@@ -38,10 +32,8 @@ function App() {
             <div className="container">
                 <div className="row">
                     <SeveritiesContextProvider>
-                        <TagsContextProvider>
-                            <Sidebar selectCompleted={selectCompleted} selectTag={selectTag} selectSeverities={{addSeverity, removeSeverity}} />
-                            <IssuesList showCompleted={showCompleted} selectedSeverities={selectedSeverities} selectedTag={selectedTag} sortOrder={sortOrder} setSortOrder={setSortOrder}/>
-                        </TagsContextProvider>
+                        <Sidebar selectCompleted={selectCompleted} selectSeverities={{addSeverity, removeSeverity}} />
+                        <IssuesList showCompleted={showCompleted} selectedSeverities={selectedSeverities} sortOrder={sortOrder} setSortOrder={setSortOrder}/>
                     </SeveritiesContextProvider>
                 </div>
             </div>

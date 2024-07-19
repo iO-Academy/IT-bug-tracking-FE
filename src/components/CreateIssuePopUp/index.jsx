@@ -1,12 +1,10 @@
 import { useContext, useRef } from 'react'
 import { SeveritiesContext, severityColorMap } from '../../contexts/SeveritiesContext.jsx'
 import { useToasts } from '../../hooks/useToasts.js'
-import { useTags } from '../../hooks/useTags.js'
 import BASE_URL from '../../settings.js'
 
 function CreateIssuePopUp({ closeModal }) {
     const severities = useContext(SeveritiesContext)
-    const tags = useTags()
     const toaster = useToasts()
     const formRef = useRef()
 
@@ -23,7 +21,6 @@ function CreateIssuePopUp({ closeModal }) {
         data.title = formData.get('title')
         data.description = formData.get('description')
         data.severity = formData.get('severity')
-        data.tags = formData.getAll('tags')
 
         try {
             const response = await fetch(`${BASE_URL}/report.php`, {
@@ -97,20 +94,6 @@ function CreateIssuePopUp({ closeModal }) {
                                             value={`${severity.id}`}
                                         />
                                         {severity.name}
-                                    </label>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
-                <div className="mb-3">
-                    <div className="mb-2"><strong>Tags:</strong></div>
-                    <div className="mb-3">
-                        { tags.list.map((tag, index) => {
-                            return (
-                                <div className="form-check form-check-inline border rounded" key={index}>
-                                    <label className="form-check-label p-1 mx-1">{tag.name}
-                                        <input type="checkbox" className="form-check-input" name="tags" value={tag.id} />
                                     </label>
                                 </div>
                             )

@@ -6,7 +6,7 @@ import CreateIssuePopUp from '../CreateIssuePopUp/index.jsx';
 import BASE_URL from '../../settings.js'
 import { useToasts } from '../../hooks/useToasts.js';
 
-function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder, setSortOrder }) {
+function IssuesList({ showCompleted, selectedSeverities, sortOrder, setSortOrder }) {
     const [issues, setIssues] = useState([])
     const [needsRefresh, setNeedsRefresh] = useState(Date.now())
     const [selectedIssue, setSelectedIssue] = useState(null)
@@ -18,7 +18,6 @@ function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder,
     const getIssues = async () => {
         let request = {}
         showCompleted && (request.completed = showCompleted ? 1 : 0)
-        selectedTag && (request.tag = selectedTag)
         selectedSeverities.length > 0 && (request.severity = selectedSeverities)
         sortOrder && (request.order = sortOrder)
         const params = new URLSearchParams(request)
@@ -43,7 +42,7 @@ function IssuesList({ showCompleted, selectedSeverities, selectedTag, sortOrder,
 
     useEffect(() => {
         getIssues()
-    }, [showCompleted, selectedTag, selectedSeverities, sortOrder, needsRefresh]);
+    }, [showCompleted, selectedSeverities, sortOrder, needsRefresh]);
 
     useEffect(() => {
         if (selectedIssue != null) {
