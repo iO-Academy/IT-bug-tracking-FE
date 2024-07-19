@@ -11,7 +11,7 @@ export function TagsContextProvider({children}) {
 
     const getTags = async () => {
         try {
-            const response = await fetch(`${BASE_URL}/tags.php`)
+            const response = await fetch(`tags.json`)
             const data = await response.json()
 
             if (response.ok) {

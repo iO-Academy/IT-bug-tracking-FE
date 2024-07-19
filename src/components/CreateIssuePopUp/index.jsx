@@ -26,7 +26,7 @@ function CreateIssuePopUp({ closeModal }) {
         data.tags = formData.getAll('tags')
 
         try {
-            const response = await fetch(`${BASE_URL}/report.php`, {
+            const response = await fetch(`report.json`, {
                 method: 'POST',
                 body: JSON.stringify(data)
             })

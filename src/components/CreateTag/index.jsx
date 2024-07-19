@@ -13,7 +13,7 @@ function CreateTag() {
         const sendData = { name: newTagTextInput.current.value }
 
         try {
-            const response = await fetch(`${BASE_URL}/addtag.php`, {
+            const response = await fetch(`tag.json`, {
                 method: 'POST',
                 body: JSON.stringify(sendData)
             })

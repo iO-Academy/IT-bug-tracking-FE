@@ -9,10 +9,8 @@
   ],
   "date_created": "01/05/2023",
   "comment_count": 3,
-  "reporter": {
-    "name": "Sarah Dunkin",
-    "department": "Operations"
-  },
+  "reporter": "Sarah Dunkin",
+  "department": 3,
   "description": "Bombay. Tabby tiger american bobtail cornish rex. Ocicat tom kitten cougar. Donskoy tomcat russian blue yet sphynx.\n\nCarrot cake chocolate rhubarb fish shaped pieces.",
   "comments": [
     {

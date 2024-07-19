@@ -19,7 +19,7 @@ export function SeveritiesContextProvider({children}) {
 
     const getSeverities = async () => {
         try {
-            const response = await fetch(`${BASE_URL}/severities.php`)
+            const response = await fetch(`severities.json`)
             const data = await response.json()
             
             if (response.ok) {
