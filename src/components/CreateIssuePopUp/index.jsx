@@ -3,13 +3,13 @@ import { SeveritiesContext, severityColorMap } from '../../contexts/SeveritiesCo
 import { useToasts } from '../../hooks/useToasts.js'
 import { useTags } from '../../hooks/useTags.js'
 import BASE_URL from '../../settings.js'
+import CreateTag from '../CreateTag/index.jsx'
 
 function CreateIssuePopUp({ closeModal }) {
     const severities = useContext(SeveritiesContext)
     const tags = useTags()
     const toaster = useToasts()
     const formRef = useRef()
-    const newTagTextInput = useRef()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -45,33 +45,6 @@ function CreateIssuePopUp({ closeModal }) {
         } catch (error) {
             console.log(error)
             toaster.error('Error in response when creating issue. Check console for details.')
-        }
-    }
-
-    const handleAddNewTag = async (e) => {
-        e.preventDefault()
-        const sendData = { name: newTagTextInput.current.value }
-
-        try {
-            const response = await fetch(`${BASE_URL}/tag.php`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(sendData)
-            })
-            const responseData = await response.json()
-    
-            if ( response.ok ) {
-                toaster.success(`New tag "${responseData.name}" created`)
-                newTagTextInput.current.value = ''
-                tags.refresh()
-            } else {
-                toaster.error('Error creating tag. ' + responseData.message)
-            }
-        } catch (error) {
-            console.log(error)
-            toaster.error('Error in response when creating tag. Check console for details.')
         }
     }
 
@@ -146,11 +119,6 @@ function CreateIssuePopUp({ closeModal }) {
                                 </div>
                             )
                         })}
-                    </div>
-                    <div className="input-group mb-3">
-                        <label htmlFor="newtag" className="input-group-text">Add New Tag:</label>
-                        <input type="text" className="form-control" id="newtag" name="new-tag-name" maxLength={255} ref={newTagTextInput} />
-                        <button type="button" role="button" className="btn btn-outline-secondary" onClick={handleAddNewTag}>+</button>
                     </div>
                 </div>
                 <div className="modal-footer">

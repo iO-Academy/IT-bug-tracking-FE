@@ -4,6 +4,7 @@ import IssueComment from '../IssueComment/index.jsx'
 import { severityColorMap } from '../../contexts/SeveritiesContext.jsx'
 import { useToasts } from '../../hooks/useToasts.js'
 import BASE_URL from '../../settings.js'
+import { useTags } from '../../hooks/useTags.js'
 
 const departmentIdMap = {
     0: 'Unknown',
@@ -20,6 +21,7 @@ function IssuePopUp({ closeModal, id }) {
     const [showNewCommentForm, setShowNewCommentForm] = useState(false)
     const [needsRefresh, setNeedsRefresh] = useState(Date.now())
     const toaster = useToasts()
+    const tags = useTags()
 
     const getIssue = async (id) => {
         const params = new URLSearchParams({id: id})
@@ -50,6 +52,33 @@ function IssuePopUp({ closeModal, id }) {
             getIssue(id)
         }
     }, [id, needsRefresh]);
+
+    const handleAddNewTag = async (e) => {
+        e.preventDefault()
+        const sendData = { 
+            issue_id: id,
+            tag_id: e.target.value 
+        }
+
+        try {
+            const response = await fetch(`${BASE_URL}/tag.php`, {
+                method: 'POST',
+                body: JSON.stringify(sendData)
+            })
+            const responseData = await response.json()
+    
+            if ( response.ok ) {
+                toaster.success(responseData.message)
+                tags.refresh()
+                setNeedsRefresh(Date.now())
+            } else {
+                toaster.error('Error creating tag. ' + responseData.message)
+            }
+        } catch (error) {
+            console.log(error)
+            toaster.error('Error in response when creating tag. Check console for details.')
+        }
+    }
 
     const toggleNewCommentForm = () => setShowNewCommentForm(!showNewCommentForm)
 
@@ -145,6 +174,25 @@ function IssuePopUp({ closeModal, id }) {
                             { issue.tags.map((tag, index) => {
                                 return <span key={index} className="text-secondary rounded border p-2 me-1 mb-1">{tag}</span>
                             })}
+                        </div>
+                        <h5 className="mb-3">Add Tags:</h5>
+                        <div className="mb-3">
+                        { tags.list.map((tag, index) => {
+                            if (!issue.tags.includes(tag.name)) {
+                                return (
+                                    <div className="form-check form-check-inline border rounded" key={index}>
+                                        <label className="form-check-label p-1 mx-1">{tag.name}
+                                            <input 
+                                                type="checkbox" 
+                                                className="form-check-input" 
+                                                name="tags" 
+                                                value={tag.id} 
+                                                onChange={handleAddNewTag}
+                                            />
+                                        </label>
+                                    </div>
+                                )}
+                        })}
                         </div>
                     </div>
                     <Collapse header={'Conversation'} comments={issue.comments}>
