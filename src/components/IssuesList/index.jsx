@@ -89,19 +89,6 @@ function IssuesList({ showCompleted, selectedSeverities, sortOrder, setSortOrder
         <>
             <main className="col-9">
                 <div className="border rounded bg-white p-3 mb-3 d-flex justify-content-between align-items-center">
-                    <div className="dropdown">
-                        
-                    </div>
-                    <button className="float-end btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        onClick={openCreateModal} type="button">
-                        Report issue +
-                    </button>
-                    {
-                        showCreateModal &&
-                        <Modal closeModal={closeCreateModal}>
-                            <CreateIssuePopUp closeModal={closeCreateModalSuccess}/>
-                        </Modal>
-                    }
                 </div>
                 {
                     (Array.isArray(issues) && issues.length > 0) ?
