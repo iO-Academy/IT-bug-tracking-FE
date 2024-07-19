@@ -96,7 +96,7 @@ function IssuesList({ showCompleted, selectedSeverities, sortOrder, setSortOrder
                         return (<IssueItem
                             key={index}
                             issue={issue}
-                            setSelectedIssue={setSelectedIssue}
+                            setSelectedIssue={() => {}}
                         />)
                     }) 
                     : <h2 className='text-secondary text-center my-3'>No issues to display.</h2>
