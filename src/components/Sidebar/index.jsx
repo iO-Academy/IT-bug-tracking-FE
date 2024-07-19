@@ -35,25 +35,6 @@ function Sidebar({ selectCompleted, selectSeverities }) {
                         Show Completed
                     </label>
                 </div>
-                <div className="border rounded bg-white p-3 mb-3">
-                    { (Array.isArray(severities) && severities.length > 0) && 
-                    severities.map(severity => {
-                        return (
-                            <div className={`form-check`} key={severity.id}>
-                                <input 
-                                    type="checkbox" 
-                                    className="form-check-input severity-checkbox" 
-                                    id={severity.name.toLowerCase()}
-                                    value={severity.id} 
-                                    onClick={handleCheckedSeverity} 
-                                />
-                                <label className={`form-check-label px-2 rounded text-bg-${severityColorMap[severity.name]}`} htmlFor={severity.name.toLowerCase()}>
-                                    {severity.name}
-                                </label>
-                            </div>
-                        )
-                    })}
-                </div>
             </div>
         </aside>
     )

@@ -90,16 +90,7 @@ function IssuesList({ showCompleted, selectedSeverities, sortOrder, setSortOrder
             <main className="col-9">
                 <div className="border rounded bg-white p-3 mb-3 d-flex justify-content-between align-items-center">
                     <div className="dropdown">
-                        <button className={"btn btn-white dropdown-toggle" + (showOrderDropdown ? " show" : "")} type="button"
-                                data-bs-toggle="dropdown" aria-expanded={showOrderDropdown} onClick={toggleOrderDropdown}>
-                            { sortOrderNameMap[sortOrder] }
-                        </button>
-                        <ul className={"dropdown-menu" + (showOrderDropdown ? " show" : "")}>
-                            <li><a className="dropdown-item" onClick={changeSortOrder} href="#">{ sortOrderNameMap["newest"] }</a></li>
-                            <li><a className="dropdown-item" id="oldest" onClick={changeSortOrder} href="#">{ sortOrderNameMap["oldest"] }</a></li>
-                            <li><a className="dropdown-item" id="severity" onClick={changeSortOrder} href="#">{ sortOrderNameMap["severity"] }</a></li>
-                            <li><a className="dropdown-item" id="comments" onClick={changeSortOrder} href="#">{ sortOrderNameMap["comments"] }</a></li>
-                        </ul>
+                        
                     </div>
                     <button className="float-end btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal"
                         onClick={openCreateModal} type="button">

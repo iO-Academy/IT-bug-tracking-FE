@@ -15,30 +15,6 @@ export const severityColorMap = {
 
 export function SeveritiesContextProvider({children}) {
     const [severities, setSeverities] = useState([])
-    const toaster = useToasts()
-
-    const getSeverities = async () => {
-        try {
-            const response = await fetch(`${BASE_URL}/severities.php`)
-            const data = await response.json()
-            
-            if (response.ok) {
-                setSeverities(data.severities)
-            } else {
-                console.log('Unable to fetch severities. ' + data.message)
-                toaster.error('Unable to fetch severities. ' + data.message)
-                setSeverities([])
-            }
-        } catch (error) {
-            console.log(error)
-            toaster.error('Unable to fetch severities. Check console for details.')
-            setSeverities([])
-        }
-    }
-
-    useEffect(() => {
-        getSeverities()
-    }, []);
 
     return (
         <SeveritiesContext.Provider value={severities}>

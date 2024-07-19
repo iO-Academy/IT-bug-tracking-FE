@@ -1,10 +1,8 @@
-import { useContext, useRef } from 'react'
-import { SeveritiesContext, severityColorMap } from '../../contexts/SeveritiesContext.jsx'
+import { useRef } from 'react'
 import { useToasts } from '../../hooks/useToasts.js'
 import BASE_URL from '../../settings.js'
 
 function CreateIssuePopUp({ closeModal }) {
-    const severities = useContext(SeveritiesContext)
     const toaster = useToasts()
     const formRef = useRef()
 
@@ -20,7 +18,7 @@ function CreateIssuePopUp({ closeModal }) {
         data.department = formData.get('department')
         data.title = formData.get('title')
         data.description = formData.get('description')
-        data.severity = formData.get('severity')
+        data.severity = 0
 
         try {
             const response = await fetch(`${BASE_URL}/report.php`, {
@@ -78,27 +76,6 @@ function CreateIssuePopUp({ closeModal }) {
                     <label htmlFor="description" className="form-label">Describe your issue</label>
                     <textarea className="form-control" id="description" rows="15" name="description" maxLength={65535} ></textarea>
                     <div className="form-text">Please be as descriptive as possible</div>
-                </div>
-                <div className="mb-3">
-                    <div className="mb-2"><strong>Severity:</strong></div>
-                    <div className="d-flex">
-                        { severities.map(severity => {
-                            return (
-                                <div className={`form-check form-check-inline rounded text-bg-${severityColorMap[severity.name]}`} key={severity.id}>
-                                    <label className="form-check-label p-1 mx-1">
-                                        <input
-                                            type="radio"
-                                            className="form-check-input"
-                                            name="severity" 
-                                            id={severity.name.toLowerCase()}
-                                            value={`${severity.id}`}
-                                        />
-                                        {severity.name}
-                                    </label>
-                                </div>
-                            )
-                        })}
-                    </div>
                 </div>
                 <div className="modal-footer">
                     <button role="button" type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
