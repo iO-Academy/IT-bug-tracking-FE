@@ -1,35 +1,52 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Sidebar from './components/Sidebar/index.jsx'
+import IssuesList from './components/IssuesList/index.jsx'
+import { SeveritiesContextProvider } from './contexts/SeveritiesContext.jsx'
+import { TagsContextProvider } from './contexts/TagsContext.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [showCompleted, setShowCompleted] = useState(false)
+    const [selectedTag, setSelectedTag] = useState(0)
+    const [selectedSeverities, setSelectedSeverities] = useState([])
+    const [sortOrder, setSortOrder] = useState('')
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const addSeverity = (selection) => {
+        const updatedSeverities = [
+            ...selectedSeverities,
+            selection
+        ]
+        setSelectedSeverities(updatedSeverities)
+    }
+
+    const removeSeverity = (selection) => {
+        const updatedSeverities = selectedSeverities.filter(
+            (id) => id !== selection
+        )
+        setSelectedSeverities(updatedSeverities)
+    }
+
+    const selectTag = (tag) => {
+        setSelectedTag(tag)
+    }
+
+    const selectCompleted = (completed) => {
+        setShowCompleted(completed)
+    }
+
+    return (
+        <>
+            <div className="container">
+                <div className="row">
+                    <SeveritiesContextProvider>
+                        <TagsContextProvider>
+                            <Sidebar selectCompleted={selectCompleted} selectTag={selectTag} selectSeverities={{addSeverity, removeSeverity}} />
+                            <IssuesList showCompleted={showCompleted} selectedSeverities={selectedSeverities} selectedTag={selectedTag} sortOrder={sortOrder} setSortOrder={setSortOrder}/>
+                        </TagsContextProvider>
+                    </SeveritiesContextProvider>
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default App
