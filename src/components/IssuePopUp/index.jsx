@@ -120,6 +120,37 @@ function IssuePopUp({ closeModal, id }) {
                         {
                             issue.comments.map((comment, index) => <IssueComment key={index} comment={comment} />)
                         }
+                        {
+                            showNewCommentForm ? (
+                                <>
+                                    <h6>Add comment:</h6>
+                                    <form id="comment-form" onSubmit={postNewComment}>
+                                        <div className="row mb-3">
+                                            <label className="col-2 col-form-label" htmlFor="comment-name">Name:</label>
+                                            <div className="col-10">
+                                                <input type="text" className="form-control" id="comment-name" name="name" />
+                                            </div>
+                                        </div>
+                                        <div className="row mb-3">
+                                            <label className="col-2 col-form-label" htmlFor="comment-input">Comment:</label>
+                                            <div className="col-10">
+                                                <textarea className="form-control" id="comment-input" name="comment" />
+                                            </div>
+                                        </div>
+                                        <div className="row mb-3">
+                                            <div className="col-12 text-end">
+                                                <button className="col-2 btn btn-secondary ms-3" type="button" onClick={toggleNewCommentForm}>Cancel</button>
+                                                <button className="col-2 btn btn-primary ms-3" type="submit">Post</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </>
+                            ) : (
+                                <div className="text-end">
+                                    <button className="btn btn-primary" type="button" onClick={toggleNewCommentForm}>Add Comment</button>
+                                </div>
+                            )
+                        }
                     </Collapse>
                 </div>
             </>
