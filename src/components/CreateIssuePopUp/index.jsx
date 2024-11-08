@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { severityColorMap } from '../../contexts/SeveritiesContext.jsx'
 import { useToasts } from '../../hooks/useToasts.js'
 import BASE_URL from '../../settings.js'
 
@@ -18,7 +19,7 @@ function CreateIssuePopUp({ closeModal }) {
         data.department = formData.get('department')
         data.title = formData.get('title')
         data.description = formData.get('description')
-        data.severity = 0
+        data.severity = formData.get('severity')
 
         try {
             const response = await fetch(`${BASE_URL}/report.php`, {
@@ -76,6 +77,71 @@ function CreateIssuePopUp({ closeModal }) {
                     <label htmlFor="description" className="form-label">Describe your issue</label>
                     <textarea className="form-control" id="description" rows="15" name="description" maxLength={65535} ></textarea>
                     <div className="form-text">Please be as descriptive as possible</div>
+                </div>
+                <div className="mb-3">
+                    <div className="mb-2"><strong>Severity:</strong></div>
+                    <div className="d-flex">
+                            <div className={`form-check form-check-inline rounded text-bg-${severityColorMap["Critical"]}`}>
+                                <label className="form-check-label p-1 mx-1">
+                                    <input
+                                        type="radio"
+                                        className="form-check-input"
+                                        name="severity" 
+                                        id="critical"
+                                        value="1"
+                                    />
+                                    Critical
+                                </label>
+                            </div>
+                            <div className={`form-check form-check-inline rounded text-bg-${severityColorMap["Severe"]}`}>
+                                <label className="form-check-label p-1 mx-1">
+                                    <input
+                                        type="radio"
+                                        className="form-check-input"
+                                        name="severity" 
+                                        id="severe"
+                                        value="2"
+                                    />
+                                    Severe
+                                </label>
+                            </div>
+                            <div className={`form-check form-check-inline rounded text-bg-${severityColorMap["Moderate"]}`}>
+                                <label className="form-check-label p-1 mx-1">
+                                    <input
+                                        type="radio"
+                                        className="form-check-input"
+                                        name="severity" 
+                                        id="moderate"
+                                        value="3"
+                                    />
+                                    Moderate
+                                </label>
+                            </div>
+                            <div className={`form-check form-check-inline rounded text-bg-${severityColorMap["Low"]}`}>
+                                <label className="form-check-label p-1 mx-1">
+                                    <input
+                                        type="radio"
+                                        className="form-check-input"
+                                        name="severity" 
+                                        id="low"
+                                        value="4"
+                                    />
+                                    Low
+                                </label>
+                            </div>
+                            <div className={`form-check form-check-inline rounded text-bg-${severityColorMap["Info"]}`}>
+                                <label className="form-check-label p-1 mx-1">
+                                    <input
+                                        type="radio"
+                                        className="form-check-input"
+                                        name="severity" 
+                                        id="info"
+                                        value="5"
+                                    />
+                                    Info
+                                </label>
+                            </div>
+                    </div>
                 </div>
                 <div className="modal-footer">
                     <button role="button" type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
